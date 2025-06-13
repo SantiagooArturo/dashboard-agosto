@@ -10,8 +10,7 @@ import {
   Home, 
   Users, 
   CreditCard, 
-  FileText, 
-  Briefcase,
+  FileText,
   LogOut,
   Moon,
   Sun
