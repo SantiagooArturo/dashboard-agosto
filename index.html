@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/worky-favicon.ico" />
@@ -7,11 +7,11 @@
     <title>MyWorkIn Admin</title>
     <meta key="title" content="MyWorkIn Admin" property="og:title" />
     <meta
-      content="Panel de administración para MyWorkIn - Gestión completa de tu plataforma"
+      content="Panel de administración para MyWorkIn - Gestión completa de datos y análisis"
       property="og:description"
     />
     <meta
-      content="Panel de administración para MyWorkIn - Gestión completa de tu plataforma"
+      content="Panel de administración para MyWorkIn - Gestión completa de datos y análisis"
       name="description"
     />
     <meta
@@ -21,17 +21,22 @@
     />
     <link href="/worky-favicon.ico" rel="icon" />
     <script>
-      // Prevent flash of unstyled content
+      // Prevent flash of unstyled content and init dark mode
       try {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark')
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
         } else {
-          document.documentElement.classList.remove('dark')
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (_) {}
     </script>
   </head>
-  <body>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

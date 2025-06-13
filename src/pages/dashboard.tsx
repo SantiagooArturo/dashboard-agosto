@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Progress } from "@heroui/progress";
@@ -5,62 +6,76 @@ import {
   Users, 
   Briefcase, 
   FileText, 
-  Calendar,
   TrendingUp,
   DollarSign,
-  UserCheck,
   Activity
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-import { mockDashboardStats, mockChartData } from "@/data/mockData";
+import { firebaseService, type DashboardStats } from "@/services/firebaseService";
 
 export default function DashboardPage() {
-  const stats = mockDashboardStats;
-  const chartData = mockChartData;
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        const [dashboardStats, chartDataResponse] = await Promise.all([
+          firebaseService.getDashboardStats(),
+          firebaseService.getChartData()
+        ]);
+        
+        setStats(dashboardStats);
+        setChartData(chartDataResponse);
+      } catch (error) {
+        console.error('Error cargando datos del dashboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!stats) return null;
   const statCards = [
     {
       title: "Total Usuarios",
       value: stats.totalUsers.toLocaleString(),
       icon: Users,
       color: "primary" as const,
-      trend: "+12% vs mes anterior"
-    },
-    {
-      title: "Usuarios Activos",
-      value: stats.activeUsers.toLocaleString(),
-      icon: UserCheck,
-      color: "success" as const,
-      trend: "+8% vs mes anterior"
-    },
-    {
-      title: "Empleos Activos",
-      value: stats.activeJobs.toLocaleString(),
-      icon: Briefcase,
-      color: "warning" as const,
-      trend: "+15% vs mes anterior"
+      trend: `+${stats.monthlyUsers} este mes`
     },
     {
       title: "Total CVs",
       value: stats.totalCVs.toLocaleString(),
       icon: FileText,
-      color: "secondary" as const,
-      trend: "+22% vs mes anterior"
+      color: "success" as const,
+      trend: `+${stats.monthlyCVs} este mes`
     },
     {
-      title: "Entrevistas",
-      value: stats.totalInterviews.toLocaleString(),
-      icon: Calendar,
-      color: "primary" as const,
-      trend: "+18% vs mes anterior"
+      title: "Empleos Activos",
+      value: stats.totalJobs.toLocaleString(),
+      icon: Briefcase,
+      color: "warning" as const,
+      trend: "Trabajos publicados"
     },
     {
       title: "Ingresos Mensuales",
-      value: `€${stats.monthlyRevenue.toLocaleString()}`,
+      value: `$${stats.monthlyRevenue.toLocaleString()}`,
       icon: DollarSign,
-      color: "success" as const,
-      trend: "+25% vs mes anterior"
+      color: "secondary" as const,
+      trend: "Ingresos del mes"
     }
   ];
 
@@ -171,67 +186,28 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </CardBody>
         </Card>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">Actividad del Usuario</h3>
-          </CardHeader>
-          <CardBody className="space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Usuarios Activos</span>
-              <span className="text-sm font-bold">{((stats.activeUsers / stats.totalUsers) * 100).toFixed(1)}%</span>
-            </div>
-            <Progress 
-              value={(stats.activeUsers / stats.totalUsers) * 100} 
-              color="success"
-              className="w-full"
-            />
-            <p className="text-xs text-gray-600">
-              {stats.activeUsers} de {stats.totalUsers} usuarios han estado activos este mes
-            </p>
+      </div>      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="hover:shadow-md transition-shadow cursor-pointer">
+          <CardBody className="p-4 text-center">
+            <Users className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={24} />
+            <h4 className="font-semibold dark:text-gray-50">Gestionar Usuarios</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Ver y administrar usuarios</p>
           </CardBody>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">Empleos Activos</h3>
-          </CardHeader>
-          <CardBody className="space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Tasa de Actividad</span>
-              <span className="text-sm font-bold">{((stats.activeJobs / stats.totalJobs) * 100).toFixed(1)}%</span>
-            </div>
-            <Progress 
-              value={(stats.activeJobs / stats.totalJobs) * 100} 
-              color="warning"
-              className="w-full"
-            />
-            <p className="text-xs text-gray-600">
-              {stats.activeJobs} empleos activos de {stats.totalJobs} totales
-            </p>
+        
+        <Card className="hover:shadow-md transition-shadow cursor-pointer">
+          <CardBody className="p-4 text-center">
+            <FileText className="mx-auto mb-2 text-green-600 dark:text-green-400" size={24} />
+            <h4 className="font-semibold dark:text-gray-50">Revisar CVs</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Analizar CVs enviados</p>
           </CardBody>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <h3 className="text-lg font-semibold">Ingresos Totales</h3>
-          </CardHeader>
-          <CardBody className="space-y-4">
-            <div className="text-center">
-              <p className="text-3xl font-bold text-success-600">
-                €{stats.totalRevenue.toLocaleString()}
-              </p>
-              <p className="text-sm text-gray-600 mt-1">
-                Ingresos acumulados
-              </p>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Este mes:</span>
-              <span className="font-semibold">€{stats.monthlyRevenue.toLocaleString()}</span>
-            </div>
+        
+        <Card className="hover:shadow-md transition-shadow cursor-pointer">
+          <CardBody className="p-4 text-center">
+            <Briefcase className="mx-auto mb-2 text-orange-600 dark:text-orange-400" size={24} />            <h4 className="font-semibold dark:text-gray-50">Empleos</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Gestionar ofertas de trabajo</p>
           </CardBody>
         </Card>
       </div>
