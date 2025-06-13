@@ -3,17 +3,33 @@ import { Card, CardBody, CardHeader } from '@heroui/card';
 import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
 import { Chip } from '@heroui/chip';
+import { Avatar } from '@heroui/avatar';
+import { Pagination } from '@heroui/pagination';
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from '@heroui/table';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from '@heroui/modal';
 import { 
-  User, 
   Mail, 
   Calendar, 
   CreditCard, 
   Search,
-  Filter,
   Download,
   Eye,
   Shield,
-  Clock
+  UserPlus
 } from 'lucide-react';
 import { firebaseService } from '../services/adminFirebaseService';
 import type { UserWithCredits } from '../services/adminFirebaseService';
@@ -23,6 +39,10 @@ const UsersPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredUsers, setFilteredUsers] = useState<UserWithCredits[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState<UserWithCredits | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const itemsPerPage = 10;
 
   const fetchUsers = async () => {
     try {
@@ -61,138 +81,24 @@ const UsersPage: React.FC = () => {
     }
   };
 
-  const UserCard = ({ user }: { user: UserWithCredits }) => (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardBody>
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              {user.photoURL ? (
-                <img 
-                  src={user.photoURL} 
-                  alt={user.displayName}
-                  className="w-full h-full rounded-full object-cover"
-                />
-              ) : (
-                <User className="w-6 h-6 text-white" />
-              )}
-            </div>
-            
-            <div className="flex-1">
-              <div className="flex items-center space-x-2">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  {user.displayName || 'Usuario Anónimo'}
-                </h3>
-                {user.disabled && (
-                  <Chip size="sm" color="danger" variant="flat">
-                    Deshabilitado
-                  </Chip>
-                )}
-                {user.customClaims?.role === 'admin' && (
-                  <Chip size="sm" color="warning" variant="flat">
-                    <Shield className="w-3 h-3 mr-1" />
-                    Admin
-                  </Chip>
-                )}
-              </div>
-              
-              <div className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                <Mail className="w-4 h-4" />
-                <span>{user.email}</span>
-              </div>
-              
-              <div className="flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-500 mt-1">
-                <Calendar className="w-3 h-3" />
-                <span>Registro: {formatDate(user.createdAt)}</span>
-              </div>
-            </div>
-          </div>
-          
-          <Button
-            isIconOnly
-            variant="light"
-            size="sm"
-            onClick={() => console.log('Ver detalles:', user.id)}
-          >
-            <Eye className="w-4 h-4" />
-          </Button>
-        </div>
-        
-        {/* Información de créditos */}
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Créditos</p>
-              <p className="font-semibold text-blue-600 dark:text-blue-400">
-                {user.creditAccount?.credits || 0}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Total Ganados</p>
-              <p className="font-semibold text-green-600 dark:text-green-400">
-                {user.creditAccount?.totalEarned || 0}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Total Gastados</p>
-              <p className="font-semibold text-orange-600 dark:text-orange-400">
-                {user.creditAccount?.totalSpent || 0}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Transacciones</p>
-              <p className="font-semibold text-purple-600 dark:text-purple-400">
-                {user.totalTransactions}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Actividad de servicios */}
-        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Análisis CV</p>
-              <p className="font-semibold text-indigo-600 dark:text-indigo-400">
-                {user.totalCVAnalysis}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Job Matches</p>
-              <p className="font-semibold text-teal-600 dark:text-teal-400">
-                {user.totalJobMatches}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Última transacción */}
-        {user.lastTransaction && (
-          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-500 dark:text-gray-400">Última actividad:</span>
-              <div className="flex items-center space-x-1">
-                <Clock className="w-3 h-3" />
-                <span className="text-gray-600 dark:text-gray-300">
-                  {formatDate(user.lastTransaction.createdAt)}
-                </span>
-              </div>
-            </div>
-            <div className="mt-1">
-              <Chip 
-                size="sm" 
-                color={user.lastTransaction.type === 'purchase' ? 'success' : 'primary'}
-                variant="flat"
-              >
-                {user.lastTransaction.description}
-              </Chip>
-            </div>
-          </div>
-        )}
-      </CardBody>
-    </Card>
+  // Pagination
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentUsers = filteredUsers.slice(startIndex, endIndex);  const renderActions = (user: UserWithCredits) => (
+    <Button
+      size="sm"
+      variant="flat"
+      color="primary"
+      startContent={<Eye size={16} />}
+      onClick={() => {
+        setSelectedUser(user);
+        onOpen();
+      }}
+    >
+      Ver detalles
+    </Button>
   );
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
       {/* Header */}
@@ -217,9 +123,9 @@ const UsersPage: React.FC = () => {
             </Button>
             <Button
               color="primary"
-              startContent={<Filter className="w-4 h-4" />}
+              startContent={<UserPlus className="w-4 h-4" />}
             >
-              Filtros
+              Añadir Usuario
             </Button>
           </div>
         </div>
@@ -283,26 +189,268 @@ const UsersPage: React.FC = () => {
         </Card>
       </div>
 
-      {/* Lista de usuarios */}
-      {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredUsers.map((user) => (
-            <UserCard key={user.id} user={user} />
-          ))}
-        </div>
-      )}
-      
-      {filteredUsers.length === 0 && !loading && (
+      {/* Users Table */}
+      <Card>
+        <CardHeader>
+          <h3 className="text-lg font-semibold">
+            Lista de Usuarios ({filteredUsers.length})
+          </h3>
+        </CardHeader>
+        <CardBody>
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+          ) : (
+            <>              <Table aria-label="Users table">
+                <TableHeader>
+                  <TableColumn>USUARIO</TableColumn>
+                  <TableColumn>EMAIL</TableColumn>
+                  <TableColumn>ESTADO</TableColumn>
+                  <TableColumn>REGISTRO</TableColumn>
+                  <TableColumn>ACCIONES</TableColumn>
+                </TableHeader>
+                <TableBody>
+                  {currentUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <Avatar
+                            src={user.photoURL}
+                            name={user.displayName || 'Usuario'}
+                            size="sm"
+                            showFallback
+                          />
+                          <div>
+                            <p className="font-medium">
+                              {user.displayName || 'Usuario Anónimo'}
+                            </p>
+                            <div className="flex items-center gap-1">
+                              {user.customClaims?.role === 'admin' && (
+                                <Chip size="sm" color="warning" variant="flat">
+                                  <Shield className="w-3 h-3 mr-1" />
+                                  Admin
+                                </Chip>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm">{user.email}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Chip
+                          color={user.disabled ? 'danger' : 'success'}
+                          variant="flat"
+                          size="sm"
+                        >
+                          {user.disabled ? 'Deshabilitado' : 'Activo'}
+                        </Chip>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1 text-sm">
+                          <Calendar className="w-4 h-4 text-gray-400" />
+                          <span>{formatDate(user.createdAt)}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {renderActions(user)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-4">
+                  <Pagination
+                    total={totalPages}
+                    page={currentPage}
+                    onChange={setCurrentPage}
+                    showControls
+                    color="primary"
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </CardBody>
+      </Card>
+        {filteredUsers.length === 0 && !loading && (
         <div className="text-center py-12">
           <p className="text-gray-500 dark:text-gray-400">
             No se encontraron usuarios que coincidan con la búsqueda.
           </p>
         </div>
       )}
+
+      {/* Modal de detalles del usuario */}
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose}
+        size="2xl"
+        scrollBehavior="inside"
+      >
+        <ModalContent>
+          <ModalHeader>
+            <div className="flex items-center gap-3">
+              <Avatar
+                src={selectedUser?.photoURL}
+                name={selectedUser?.displayName || 'Usuario'}
+                size="md"
+                showFallback
+              />
+              <div>
+                <h3 className="text-xl font-semibold">
+                  {selectedUser?.displayName || 'Usuario Anónimo'}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {selectedUser?.email}
+                </p>
+              </div>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            {selectedUser && (
+              <div className="space-y-6">
+                {/* Información básica */}
+                <div>
+                  <h4 className="text-lg font-semibold mb-3">Información Básica</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Estado</label>
+                      <div className="mt-1">
+                        <Chip
+                          color={selectedUser.disabled ? 'danger' : 'success'}
+                          variant="flat"
+                          size="sm"
+                        >
+                          {selectedUser.disabled ? 'Deshabilitado' : 'Activo'}
+                        </Chip>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Fecha de Registro</label>
+                      <p className="mt-1 font-medium">{formatDate(selectedUser.createdAt)}</p>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">UID</label>
+                      <p className="mt-1 font-mono text-xs">{selectedUser.id}</p>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Rol</label>
+                      <div className="mt-1">
+                        {selectedUser.customClaims?.role === 'admin' ? (
+                          <Chip size="sm" color="warning" variant="flat">
+                            <Shield className="w-3 h-3 mr-1" />
+                            Administrador
+                          </Chip>
+                        ) : (
+                          <Chip size="sm" color="primary" variant="flat">
+                            Usuario
+                          </Chip>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Información de créditos */}
+                <div>
+                  <h4 className="text-lg font-semibold mb-3">Información de Créditos</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CreditCard className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <label className="text-sm font-medium text-blue-700 dark:text-blue-300">Créditos Actuales</label>
+                      </div>
+                      <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {selectedUser.creditAccount?.credits || 0}
+                      </p>
+                    </div>
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                      <label className="text-sm font-medium text-green-700 dark:text-green-300">Total Ganados</label>
+                      <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {selectedUser.creditAccount?.totalEarned || 0}
+                      </p>
+                    </div>
+                    <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                      <label className="text-sm font-medium text-red-700 dark:text-red-300">Total Gastados</label>
+                      <p className="text-2xl font-bold text-red-600 dark:text-red-400">
+                        {selectedUser.creditAccount?.totalSpent || 0}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Estadísticas de uso */}
+                <div>
+                  <h4 className="text-lg font-semibold mb-3">Estadísticas de Uso</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                      <label className="text-sm font-medium text-purple-700 dark:text-purple-300">Total Transacciones</label>
+                      <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                        {selectedUser.totalTransactions}
+                      </p>
+                    </div>
+                    <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                      <label className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Análisis de CV</label>
+                      <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                        {selectedUser.totalCVAnalysis}
+                      </p>
+                    </div>
+                    <div className="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-teal-200 dark:border-teal-800">
+                      <label className="text-sm font-medium text-teal-700 dark:text-teal-300">Job Matches</label>
+                      <p className="text-2xl font-bold text-teal-600 dark:text-teal-400">
+                        {selectedUser.totalJobMatches}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Última transacción */}
+                {selectedUser.lastTransaction && (
+                  <div>
+                    <h4 className="text-lg font-semibold mb-3">Última Transacción</h4>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Chip 
+                            size="sm" 
+                            color={selectedUser.lastTransaction.type === 'purchase' ? 'success' : 'primary'}
+                            variant="flat"
+                          >
+                            {selectedUser.lastTransaction.description}
+                          </Chip>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            {formatDate(selectedUser.lastTransaction.createdAt)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button 
+              color="primary" 
+              variant="light" 
+              onClick={onClose}
+            >
+              Cerrar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

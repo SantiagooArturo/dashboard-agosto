@@ -99,14 +99,9 @@ const AppContent: React.FC = () => {
         {/* Logo */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">MW</span>
-            </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                MyWorkIn
-              </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <img src='/MyWorkIn-web.png' alt="MyWorkIn Logo" className="h-10 w-auto" />
+              <p className="text-sm text-center text-gray-600 dark:text-gray-400">
                 Panel Admin
               </p>
             </div>

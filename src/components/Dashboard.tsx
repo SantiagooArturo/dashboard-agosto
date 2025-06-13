@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader } from '@heroui/card';
-import { Button } from '@heroui/button';
 import { Chip } from '@heroui/chip';
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell
 } from 'recharts';
-import { 
-  Users, 
-  FileText, 
-  Briefcase, 
-  CreditCard, 
+import {
+  Users,
+  FileText,
+  Briefcase,
   TrendingUp,
   Target,
   Clock,
@@ -58,17 +54,17 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       console.log('🔄 Cargando estadísticas desde Firebase...');
-      
+
       // Obtener estadísticas principales
       const dashboardStats = await firebaseService.getDashboardStats();
       setStats(dashboardStats);
-      
+
       // Obtener datos del período (últimos 30 días)
       const periodStats = await firebaseService.getStatsForPeriod(30);
       setPeriodData(periodStats);
-      
+
       console.log('✅ Estadísticas cargadas:', dashboardStats);
-      
+
     } catch (error) {
       console.error('❌ Error cargando estadísticas:', error);
       // Mantener datos mock en caso de error
@@ -83,26 +79,19 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth');
-    localStorage.removeItem('adminUser');
-    window.location.reload();
-  };
-
   // Datos mock para gráficos (se mantendrán hasta tener datos históricos reales)
   const monthlyData = periodData.length > 0 ? periodData.slice(-6).map(day => ({
     month: new Date(day.date).toLocaleDateString('es', { month: 'short' }),
     usuarios: Math.floor(Math.random() * 50) + 20, // Simulado por ahora
     cvs: day.cvAnalysis || 0,
-    empleos: day.jobMatches || 0,
-    ingresos: day.revenue || 0
+    empleos: day.jobMatches || 0
   })) : [
-    { month: 'Ene', usuarios: 45, cvs: 67, empleos: 12, ingresos: 890 },
-    { month: 'Feb', usuarios: 52, cvs: 78, empleos: 15, ingresos: 1200 },
-    { month: 'Mar', usuarios: 48, cvs: 65, empleos: 18, ingresos: 950 },
-    { month: 'Abr', usuarios: 61, cvs: 89, empleos: 22, ingresos: 1450 },
-    { month: 'May', usuarios: 55, cvs: 76, empleos: 19, ingresos: 1100 },
-    { month: 'Jun', usuarios: 67, cvs: 94, empleos: 25, ingresos: 1680 }
+    { month: 'Ene', usuarios: 45, cvs: 67, empleos: 12 },
+    { month: 'Feb', usuarios: 52, cvs: 78, empleos: 15 },
+    { month: 'Mar', usuarios: 48, cvs: 65, empleos: 18 },
+    { month: 'Abr', usuarios: 61, cvs: 89, empleos: 22 },
+    { month: 'May', usuarios: 55, cvs: 76, empleos: 19 },
+    { month: 'Jun', usuarios: 67, cvs: 94, empleos: 25 }
   ];
 
   const pieData = [
@@ -149,43 +138,16 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <StatCard
             title="Total Usuarios"
             value={stats.totalUsers}
             icon={Users}
             color="bg-blue-500"
-            change="+12%"
+            // change="+12%"
             subtitle={`${stats.newUsersThisMonth} nuevos este mes`}
           />
-          <StatCard
-            title="Análisis de CV"
-            value={stats.totalCVAnalysis}
-            icon={FileText}
-            color="bg-green-500"
-            change="+8%"
-            subtitle={`${stats.monthlyCVAnalysis} este mes`}
-          />
-          <StatCard
-            title="Empleos Activos"
-            value={stats.activeJobs}
-            icon={Briefcase}
-            color="bg-purple-500"
-            change="+15%"
-            subtitle={`${stats.totalJobs} total`}
-          />
-          <StatCard
-            title="Ingresos"
-            value={`$${stats.totalRevenue.toFixed(2)}`}
-            icon={CreditCard}
-            color="bg-orange-500"
-            change="+22%"
-            subtitle={`$${stats.monthlyRevenue.toFixed(2)} este mes`}
-          />
-        </div>
 
-        {/* Segunda fila de estadísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Créditos Distribuidos"
             value={stats.totalCreditsDistributed}
@@ -194,11 +156,37 @@ const Dashboard: React.FC = () => {
             subtitle={`${stats.totalCreditsSpent} consumidos`}
           />
           <StatCard
+            title="Transacciones Pendientes"
+            value={stats.pendingTransactions}
+            icon={Clock}
+            color="bg-amber-500"
+          />
+          {/* <StatCard
+            title="Empleos Activos"
+            value={stats.activeJobs}
+            icon={Briefcase}
+            color="bg-purple-500"
+            change="+15%"
+            subtitle={`${stats.totalJobs} total`}
+          /> */}
+        </div>
+
+        {/* Segunda fila de estadísticas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+
+          <StatCard
+            title="Análisis de CV"
+            value={stats.totalCVAnalysis}
+            icon={FileText}
+            color="bg-green-500"
+            // change="+8%"
+            subtitle={`${stats.monthlyCVAnalysis} este mes`}
+          /><StatCard
             title="Job Matches"
             value={stats.totalJobMatches}
             icon={Target}
             color="bg-teal-500"
-            change="+18%"
+            // change="+18%"
             subtitle={`${stats.monthlyJobMatches} este mes`}
           />
           <StatCard
@@ -207,12 +195,7 @@ const Dashboard: React.FC = () => {
             icon={Award}
             color="bg-rose-500"
           />
-          <StatCard
-            title="Transacciones Pendientes"
-            value={stats.pendingTransactions}
-            icon={Clock}
-            color="bg-amber-500"
-          />
+
         </div>
 
         {/* Charts */}
@@ -223,39 +206,30 @@ const Dashboard: React.FC = () => {
                 Tendencias de Servicios (Últimos 6 meses)
               </h3>
             </CardHeader>
-            <CardBody>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={monthlyData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area 
-                    type="monotone" 
-                    dataKey="cvs" 
-                    stackId="1" 
-                    stroke="#3B82F6" 
-                    fill="#3B82F6" 
-                    name="Análisis CV"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="empleos" 
-                    stackId="1" 
-                    stroke="#10B981" 
-                    fill="#10B981" 
-                    name="Job Matches"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="ingresos" 
-                    stackId="2" 
-                    stroke="#F59E0B" 
-                    fill="#F59E0B" 
-                    name="Ingresos ($)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+            <CardBody>              <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area
+                  type="monotone"
+                  dataKey="cvs"
+                  stackId="1"
+                  stroke="#3B82F6"
+                  fill="#3B82F6"
+                  name="Análisis CV"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="empleos"
+                  stackId="1"
+                  stroke="#10B981"
+                  fill="#10B981"
+                  name="Job Matches"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
             </CardBody>
           </Card>
 
@@ -285,32 +259,8 @@ const Dashboard: React.FC = () => {
                   <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
-            </CardBody>
-          </Card>
-        </div>        {/* Revenue Performance */}
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Rendimiento de Ingresos (Últimos 6 meses)
-              </h3>
-              <Chip color="success" variant="flat">
-                ${stats.monthlyRevenue.toFixed(2)} este mes
-              </Chip>
-            </div>
-          </CardHeader>
-          <CardBody>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={monthlyData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip formatter={(value: number) => [`$${value}`, 'Ingresos']} />
-                <Bar dataKey="ingresos" fill="#8B5CF6" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardBody>
-        </Card>
+            </CardBody>          </Card>
+        </div>
       </main>
     </div>
   );
