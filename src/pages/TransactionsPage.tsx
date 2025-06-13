@@ -291,7 +291,7 @@ const TransactionsPage: React.FC = () => {
         <Card>
           <CardBody className="text-center">
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-              ${totalRevenue.toFixed(2)}
+              S/ {totalRevenue.toFixed(2)}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">
               Ingresos Totales
