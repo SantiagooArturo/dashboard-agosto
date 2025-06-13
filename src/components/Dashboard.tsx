@@ -132,11 +132,25 @@ const Dashboard: React.FC = () => {
       </CardBody>
     </Card>
   );
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">        {/* Stats Cards */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                Vista Panorámica
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
+                Resumen general del sistema y estadísticas principales
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <StatCard
             title="Total Usuarios"
