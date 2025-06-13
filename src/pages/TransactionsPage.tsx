@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardHeader } from '@heroui/card';
+import { Card, CardBody } from '@heroui/card';
 import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
 import { Chip } from '@heroui/chip';
 import { 
   CreditCard, 
   Search,
-  Filter,
   Download,
   TrendingUp,
   TrendingDown,

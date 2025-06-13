@@ -16,7 +16,6 @@ import {
 import {
   Users,
   FileText,
-  Briefcase,
   TrendingUp,
   Target,
   Clock,

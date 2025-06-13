@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Chip } from "@heroui/chip";
-import { Progress } from "@heroui/progress";
 import { 
   Users, 
   Briefcase, 
