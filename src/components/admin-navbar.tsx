@@ -12,16 +12,16 @@ import {
   DropdownItem 
 } from "@heroui/dropdown";
 import { Menu, Bell, Settings, LogOut, User } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 interface AdminNavbarProps {
   onMenuClick: () => void;
 }
 
 export const AdminNavbar = ({ onMenuClick }: AdminNavbarProps) => {
-  return (
-    <Navbar 
+  return (    <Navbar 
       isBordered
-      className="bg-white shadow-sm"
+      className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700"
       maxWidth="full"
     >
       <NavbarContent justify="start">
@@ -35,9 +35,11 @@ export const AdminNavbar = ({ onMenuClick }: AdminNavbarProps) => {
             <Menu size={20} />
           </Button>
         </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent justify="end">
+      </NavbarContent>      <NavbarContent justify="end">
+        <NavbarItem>
+          <ThemeToggle />
+        </NavbarItem>
+        
         <NavbarItem>
           <Button isIconOnly variant="light">
             <Bell size={20} />

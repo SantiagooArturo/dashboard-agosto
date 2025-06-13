@@ -60,15 +60,16 @@ export default function DefaultLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-
   return (
-    <div className="relative flex h-screen bg-gray-50">
+    <div className="relative flex h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-lg transform ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-between h-16 px-6 border-b">
-          <h1 className="text-xl font-bold text-primary">MyWorkIn Admin</h1>
+        <div className="flex items-center justify-between h-16 px-6 border-b dark:border-gray-700">
+          <h1 className="text-xl font-bold text-primary">
+            <img src="/MyWorkIn-web.png" alt="Logo" className="h-8" /> 
+          </h1>
           <Button
             isIconOnly
             variant="light"
@@ -90,8 +91,8 @@ export default function DefaultLayout({
                 to={item.href}
                 className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'bg-primary-50 text-primary border-r-2 border-primary' 
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary border-r-2 border-primary' 
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                 }`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -115,11 +116,11 @@ export default function DefaultLayout({
       <div className="flex flex-col flex-1 lg:ml-0">
         <AdminNavbar onMenuClick={() => setSidebarOpen(true)} />
         
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-6 bg-gray-50 dark:bg-gray-900">
           {children}
         </main>
         
-        <footer className="bg-white border-t px-6 py-4">
+        <footer className="bg-white dark:bg-gray-800 border-t dark:border-gray-700 px-6 py-4">
           <div className="flex items-center justify-center">
             <Link
               isExternal
