@@ -5,19 +5,27 @@ import Dashboard from './components/Dashboard';
 import UsersPage from './pages/UsersPage';
 import TransactionsPage from './pages/TransactionsPage';
 import CVAnalysisPage from './pages/CVAnalysisPage';
+import FirebaseAnalysisPage from './pages/FirebaseAnalysisPage';
+import ActivationAnalyticsPage from './pages/ActivationAnalyticsPage';
+import EngagementAnalyticsPage from './pages/EngagementAnalyticsPage';
+import MonetizationAnalyticsPage from './pages/MonetizationAnalyticsPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { 
   Home, 
   Users, 
   CreditCard, 
   FileText,
+  Database,
+  TrendingUp,
+  Heart,
+  DollarSign,
   LogOut,
   Moon,
   Sun
 } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 
-type Page = 'dashboard' | 'users' | 'transactions' | 'cv-analysis' | 'jobs';
+type Page = 'dashboard' | 'users' | 'transactions' | 'cv-analysis' | 'firebase-analysis' | 'activation-analytics' | 'engagement-analytics' | 'monetization-analytics' | 'jobs';
 
 const AppContent: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,6 +55,10 @@ const AppContent: React.FC = () => {
     { id: 'users', label: 'Usuarios', icon: Users },
     { id: 'transactions', label: 'Transacciones', icon: CreditCard },
     { id: 'cv-analysis', label: 'Análisis CV', icon: FileText },
+    { id: 'firebase-analysis', label: 'Firebase DB', icon: Database },
+    { id: 'activation-analytics', label: 'Analytics: Activación', icon: TrendingUp },
+    { id: 'engagement-analytics', label: 'Analytics: Engagement', icon: Heart },
+    // { id: 'monetization-analytics', label: 'Analytics: Monetización', icon: DollarSign },
     // { id: 'jobs', label: 'Empleos', icon: Briefcase },
   ];
 
@@ -60,6 +72,14 @@ const AppContent: React.FC = () => {
         return <TransactionsPage />;
       case 'cv-analysis':
         return <CVAnalysisPage />;
+      case 'firebase-analysis':
+        return <FirebaseAnalysisPage />;
+      case 'activation-analytics':
+        return <ActivationAnalyticsPage />;
+      case 'engagement-analytics':
+        return <EngagementAnalyticsPage />;
+      case 'monetization-analytics':
+        return <MonetizationAnalyticsPage />;
       // case 'jobs':
       //   return (
       //     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
