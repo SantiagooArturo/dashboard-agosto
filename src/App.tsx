@@ -18,7 +18,7 @@ import {
   Database,
   TrendingUp,
   Heart,
-  DollarSign,
+
   LogOut,
   Moon,
   Sun

@@ -10,20 +10,13 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  FunnelChart,
-  Funnel,
   Cell,
   PieChart,
-  Pie,
-  LineChart,
-  Line
+  Pie
 } from 'recharts';
 import {
-  Users,
-  TrendingDown,
   AlertTriangle,
   Clock,
-  GraduationCap,
   CheckCircle,
   XCircle,
   Target
@@ -95,7 +88,7 @@ const ActivationAnalyticsPage: React.FC = () => {
   );
 
   // Colores para el funnel
-  const funnelColors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
+
 
   if (loading) {
     return (
@@ -237,7 +230,7 @@ const ActivationAnalyticsPage: React.FC = () => {
               
               {/* Detalles del funnel */}
               <div className="mt-4 space-y-2">
-                {analytics.funnelSteps.map((step, index) => (
+                {analytics.funnelSteps.map((step) => (
                   <div key={step.step} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded">
                     <span className="font-medium">{step.step}</span>
                     <div className="flex items-center space-x-2">

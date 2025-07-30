@@ -99,7 +99,7 @@ export const FirebaseAnalysisPage: React.FC = () => {
               <div className="flex space-x-2">
                 <Button
                   size="sm"
-                  variant="outline"
+                  variant="bordered"
                   onClick={() => {
                     navigator.clipboard.writeText(analysisResult);
                     // Aquí podrías agregar una notificación de éxito
@@ -110,7 +110,7 @@ export const FirebaseAnalysisPage: React.FC = () => {
                 
                 <Button
                   size="sm"
-                  variant="outline"
+                  variant="bordered"
                   onClick={() => {
                     const blob = new Blob([analysisResult], { type: 'text/plain' });
                     const url = URL.createObjectURL(blob);

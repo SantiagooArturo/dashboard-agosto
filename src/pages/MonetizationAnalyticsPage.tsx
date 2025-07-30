@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader } from '@heroui/card';
-import { Chip } from '@heroui/chip';
+
 import { Button } from '@heroui/button';
 import {
   BarChart,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LineChart,
+
   Line,
   PieChart,
   Pie,
@@ -23,13 +23,13 @@ import {
   DollarSign,
   TrendingUp,
   Users,
-  CreditCard,
+
   Target,
   Zap,
   ShoppingCart,
   AlertTriangle,
   CheckCircle,
-  Clock,
+
   Star,
   Coins
 } from 'lucide-react';
@@ -305,7 +305,7 @@ const MonetizationAnalyticsPage: React.FC = () => {
                     fill="#8884d8"
                     dataKey="userCount"
                   >
-                    {analytics.credits.creditDistribution.map((entry, index) => (
+                    {analytics.credits.creditDistribution.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                     ))}
                   </Pie>

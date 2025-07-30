@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/config/firebase';
 
 // ⚠️ IMPORTANTE: ESTE SERVICIO ES SOLO LECTURA - NO MODIFICA DATOS
@@ -120,11 +120,11 @@ class MonetizationAnalyticsService {
       
       // Obtener todos los usuarios
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
       
       // Obtener transacciones de compra
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
       
       // Filtrar solo transacciones de compra (no bonus)
       const purchaseTransactions = allTransactions.filter(tx => 
@@ -222,10 +222,10 @@ class MonetizationAnalyticsService {
       console.log('🎯 Analizando analytics de créditos...');
       
       const creditAccountsSnapshot = await getDocs(collection(db, 'creditAccounts'));
-      const creditAccounts = creditAccountsSnapshot.docs.map(doc => doc.data());
+      const creditAccounts = creditAccountsSnapshot.docs.map(doc => doc.data() as any);
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const transactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const transactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
 
       // Calcular métricas básicas
       const totalCreditsDistributed = creditAccounts.reduce((sum, account) => sum + (account.totalEarned || 0), 0);
@@ -303,7 +303,7 @@ class MonetizationAnalyticsService {
       console.log('💰 Calculando métricas de revenue...');
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
       
       const usersSnapshot = await getDocs(collection(db, 'users'));
       const totalUsers = usersSnapshot.size;
@@ -406,7 +406,7 @@ class MonetizationAnalyticsService {
       console.log('🔄 Analizando patrones de compra...');
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
       
       const purchaseTransactions = allTransactions.filter(tx => 
         tx.type === 'purchase' && tx.paymentAmount && tx.paymentAmount > 0
@@ -532,10 +532,10 @@ class MonetizationAnalyticsService {
       console.log('🎯 Analizando value realization...');
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const allTransactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
       
       const creditAccountsSnapshot = await getDocs(collection(db, 'creditAccounts'));
-      const creditAccounts = creditAccountsSnapshot.docs.map(doc => doc.data());
+      const creditAccounts = creditAccountsSnapshot.docs.map(doc => doc.data() as any);
 
       const purchaseTransactions = allTransactions.filter(tx => 
         tx.type === 'purchase' && tx.paymentAmount && tx.paymentAmount > 0
@@ -687,7 +687,6 @@ class MonetizationAnalyticsService {
       ]);
 
       // Calcular overview
-      const currentDate = new Date();
       const lastMonth = revenue.revenueByMonth[revenue.revenueByMonth.length - 1];
       const secondLastMonth = revenue.revenueByMonth[revenue.revenueByMonth.length - 2];
       

@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/config/firebase';
 
 // ⚠️ IMPORTANTE: ESTE SERVICIO ES SOLO LECTURA - NO MODIFICA DATOS
@@ -77,7 +77,7 @@ class EngagementAnalyticsService {
 
       // Filtrar usuarios del cohort (registrados hace 30+ días)
       const cohortUsers = users.filter(user => {
-        const createdAt = user.createdAt?.toDate ? user.createdAt.toDate() : new Date(user.createdAt);
+        const createdAt = (user as any).createdAt?.toDate ? (user as any).createdAt.toDate() : new Date((user as any).createdAt);
         return createdAt <= thirtyDaysAgo;
       });
 
@@ -86,8 +86,8 @@ class EngagementAnalyticsService {
       let day30Retained = 0;
 
       cohortUsers.forEach(user => {
-        const createdAt = user.createdAt?.toDate ? user.createdAt.toDate() : new Date(user.createdAt);
-        const lastLogin = user.updatedAt?.toDate ? user.updatedAt.toDate() : user.lastLogin?.toDate ? user.lastLogin.toDate() : null;
+        const createdAt = (user as any).createdAt?.toDate ? (user as any).createdAt.toDate() : new Date((user as any).createdAt);
+        const lastLogin = (user as any).updatedAt?.toDate ? (user as any).updatedAt.toDate() : (user as any).lastLogin?.toDate ? (user as any).lastLogin.toDate() : null;
         
         if (lastLogin) {
           const daysSinceCreation = Math.floor((lastLogin.getTime() - createdAt.getTime()) / (24 * 60 * 60 * 1000));
@@ -116,7 +116,7 @@ class EngagementAnalyticsService {
       console.log('🔧 Analizando uso de herramientas...');
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const transactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const transactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
 
       // Contar uso por herramienta
       const toolStats: { [key: string]: { count: number; users: Set<string> } } = {};
@@ -154,10 +154,10 @@ class EngagementAnalyticsService {
       console.log('👥 Segmentando usuarios por comportamiento...');
       
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const transactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const transactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
 
       // Crear mapa de actividad por usuario
       const userActivity: { [userId: string]: number } = {};
@@ -235,7 +235,7 @@ class EngagementAnalyticsService {
       console.log('⏰ Analizando patrones de sesión...');
       
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
 
       const now = new Date();
       const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
@@ -247,8 +247,8 @@ class EngagementAnalyticsService {
       let monthlyActive = 0;
 
       users.forEach(user => {
-        const lastActivity = user.updatedAt?.toDate ? user.updatedAt.toDate() : 
-                           user.lastLogin?.toDate ? user.lastLogin.toDate() : null;
+        const lastActivity = (user as any).updatedAt?.toDate ? (user as any).updatedAt.toDate() : 
+                           (user as any).lastLogin?.toDate ? (user as any).lastLogin.toDate() : null;
         
         if (lastActivity) {
           if (lastActivity >= oneDayAgo) dailyActive++;
@@ -290,10 +290,10 @@ class EngagementAnalyticsService {
       console.log('📊 Calculando tendencias de engagement...');
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const transactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const transactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
       
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const users = usersSnapshot.docs.map(doc => doc.data());
+      const users = usersSnapshot.docs.map(doc => doc.data() as any);
 
       // Agrupar por día los últimos 30 días
       const trends: { [date: string]: { users: Set<string>, newUsers: number, toolUsage: number } } = {};
@@ -319,7 +319,7 @@ class EngagementAnalyticsService {
 
       // Contar nuevos usuarios por día
       users.forEach(user => {
-        const createdAt = user.createdAt?.toDate ? user.createdAt.toDate() : new Date(user.createdAt);
+        const createdAt = (user as any).createdAt?.toDate ? (user as any).createdAt.toDate() : new Date((user as any).createdAt);
         const dateStr = createdAt.toISOString().split('T')[0];
         
         if (trends[dateStr]) {
@@ -347,10 +347,10 @@ class EngagementAnalyticsService {
       console.log('📋 Calculando overview de engagement...');
       
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
       
       const transactionsSnapshot = await getDocs(collection(db, 'creditTransactions'));
-      const transactions = transactionsSnapshot.docs.map(doc => doc.data());
+      const transactions = transactionsSnapshot.docs.map(doc => doc.data() as any);
 
       const now = new Date();
       const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -362,8 +362,8 @@ class EngagementAnalyticsService {
       let churning = 0;
 
       users.forEach(user => {
-        const lastActivity = user.updatedAt?.toDate ? user.updatedAt.toDate() : 
-                           user.lastLogin?.toDate ? user.lastLogin.toDate() : null;
+        const lastActivity = (user as any).updatedAt?.toDate ? (user as any).updatedAt.toDate() : 
+                           (user as any).lastLogin?.toDate ? (user as any).lastLogin.toDate() : null;
         
         if (lastActivity) {
           if (lastActivity >= oneWeekAgo) weeklyActive++;

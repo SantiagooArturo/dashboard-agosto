@@ -36,7 +36,7 @@ export class FirebaseAnalyzer {
       const sampleSnapshot = await getDocs(sampleQuery);
       const sampleDocuments = sampleSnapshot.docs.map(doc => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data() as any
       }));
 
       // Analizar campos
@@ -50,7 +50,7 @@ export class FirebaseAnalyzer {
         fields.forEach(field => {
           if (!fieldAnalysis[field]) {
             fieldAnalysis[field] = {
-              type: this.getFieldType(doc[field]),
+              type: this.getFieldType((doc as any)[field]),
               frequency: 0,
               sampleValues: []
             };
@@ -60,7 +60,7 @@ export class FirebaseAnalyzer {
           
           // Agregar valores de muestra (máximo 5)
           if (fieldAnalysis[field].sampleValues.length < 5) {
-            fieldAnalysis[field].sampleValues.push(doc[field]);
+            fieldAnalysis[field].sampleValues.push((doc as any)[field]);
           }
         });
       });

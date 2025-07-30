@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader } from '@heroui/card';
-import { Chip } from '@heroui/chip';
+
 import { Button } from '@heroui/button';
 import {
   BarChart,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LineChart,
+
   Line,
   PieChart,
   Pie,
@@ -20,7 +20,7 @@ import {
 } from 'recharts';
 import {
   Users,
-  UserCheck,
+
   Activity,
   TrendingUp,
   TrendingDown,
@@ -254,7 +254,7 @@ const EngagementAnalyticsPage: React.FC = () => {
                     fill="#8884d8"
                     dataKey="userCount"
                   >
-                    {analytics.userSegments.map((entry, index) => (
+                    {analytics.userSegments.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                     ))}
                   </Pie>
