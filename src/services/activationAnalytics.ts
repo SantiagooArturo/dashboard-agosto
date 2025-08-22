@@ -35,6 +35,12 @@ export interface OnboardingAnalysis {
   avgCompletionTime?: number;
 }
 
+export interface UniversityDistribution {
+  university: string;
+  users: number;
+  percentage: number;
+}
+
 export interface ActivationAnalytics {
   funnelSteps: ActivationFunnelStep[];
   universityBreakdown: UniversityActivation[];

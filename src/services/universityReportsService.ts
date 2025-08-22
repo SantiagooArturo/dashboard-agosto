@@ -667,7 +667,7 @@ class UniversityReportsService {
     
     // Seleccionar 2-4 habilidades nuevas basado en el ID
     const numNewSkills = 2 + (userIdNum % 3);
-    const newSkills = [];
+    const newSkills: string[] = [];
     
     for (let i = 0; i < numNewSkills; i++) {
       const skillIndex = (userIdNum + i * 17) % skillPool.length;
@@ -831,7 +831,7 @@ class UniversityReportsService {
   }
 
   // SOLO LECTURA: Calcular métricas de impacto
-  private calculateImpactMetrics(user: any, transactions: any[], cvAnalysisResults: any[]): ImpactMetrics {
+  private calculateImpactMetrics(user: any, transactions: any[], _cvAnalysisResults: any[]): ImpactMetrics {
     const universityName = this.normalizeUniversityName(user.university || '');
     
     // Para Universidad de Lima, generar métricas mock realistas

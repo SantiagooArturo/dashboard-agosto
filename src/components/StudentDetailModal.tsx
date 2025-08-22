@@ -16,8 +16,6 @@ import {
   XCircle,
   Clock,
   ExternalLink,
-  Eye,
-  Download,
   TrendingUp,
   TrendingDown,
   ArrowRight,

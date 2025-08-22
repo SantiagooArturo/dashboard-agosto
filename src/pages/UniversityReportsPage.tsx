@@ -222,7 +222,7 @@ const UniversityReportsPage: React.FC = () => {
                   className="max-w-md"
                 >
                   {universities.map((university) => (
-                    <SelectItem key={university.key} value={university.key}>
+                    <SelectItem key={university.key}>
                       {university.label}
                     </SelectItem>
                   ))}
