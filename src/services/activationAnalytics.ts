@@ -38,6 +38,7 @@ export interface OnboardingAnalysis {
 export interface ActivationAnalytics {
   funnelSteps: ActivationFunnelStep[];
   universityBreakdown: UniversityActivation[];
+  universityDistribution: UniversityDistribution[];
   timeToActivationData: TimeToActivation[];
   onboardingAnalysis: OnboardingAnalysis;
   criticalMetrics: {
@@ -50,6 +51,83 @@ export interface ActivationAnalytics {
 }
 
 class ActivationAnalyticsService {
+  // ===== Normalización de universidades (solo front) =====
+  private universityAliases: {
+    exact: Record<string, string>;
+    contains: Array<{ needle: string; canon: string }>;
+  } | null = null;
+
+  private async loadUniversityAliases(): Promise<void> {
+    if (this.universityAliases) return;
+    try {
+      const res = await fetch('/aliases/universities.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('No se pudo cargar el mapa de universidades');
+      this.universityAliases = await res.json();
+    } catch (_e) {
+      // Fallback mínimo para no romper UI
+      this.universityAliases = { exact: {}, contains: [] };
+    }
+  }
+
+  private normalize(text?: string): string {
+    if (!text) return '';
+    return text
+      .toString()
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\s+/g, ' ');
+  }
+
+  private async mapUniversityToCanonical(raw?: string): Promise<string> {
+    await this.loadUniversityAliases();
+    const norm = this.normalize(raw);
+    if (!this.universityAliases) return raw || 'No especificado / Otros';
+
+    const { exact, contains } = this.universityAliases;
+
+    if (exact[norm]) return exact[norm];
+
+    for (const rule of contains) {
+      if (norm.includes(this.normalize(rule.needle))) {
+        return rule.canon;
+      }
+    }
+
+    return raw?.trim() || 'No especificado / Otros';
+  }
+
+  // ===== Distribución por universidad =====
+  async getUniversityDistribution(): Promise<UniversityDistribution[]> {
+    try {
+      const usersSnapshot = await getDocs(collection(db, 'users'));
+      const totalUsers = usersSnapshot.size || 1;
+
+      const counter = new Map<string, number>();
+
+      for (const docSnap of usersSnapshot.docs) {
+        const data = docSnap.data() as any;
+        // Canonizar
+        const canon = await this.mapUniversityToCanonical(data?.university);
+        counter.set(canon, (counter.get(canon) || 0) + 1);
+      }
+
+      const distribution: UniversityDistribution[] = Array.from(counter.entries())
+        .map(([university, count]) => ({
+          university,
+          users: count,
+          percentage: (count / totalUsers) * 100,
+        }))
+        .sort((a, b) => b.users - a.users);
+
+      return distribution;
+    } catch (error) {
+      console.error('❌ Error analizando distribución por universidad:', error);
+      return [];
+    }
+  }
   
   // SOLO LECTURA: Analizar funnel de activación completo
   async getActivationFunnel(): Promise<ActivationFunnelStep[]> {
@@ -144,9 +222,9 @@ class ActivationAnalyticsService {
         activationTimes: number[];
       }>();
       
-      usersSnapshot.docs.forEach(doc => {
-        const userData = doc.data();
-        const university = userData.university || 'Sin especificar';
+      for (const docSnap of usersSnapshot.docs) {
+        const userData = docSnap.data() as any;
+        const university = await this.mapUniversityToCanonical(userData.university || 'Sin especificar');
         const isActivated = userData.hasCV === true || userData.cvFileName;
         
         if (!universityMap.has(university)) {
@@ -171,7 +249,7 @@ class ActivationAnalyticsService {
             uniData.activationTimes.push(daysDiff);
           }
         }
-      });
+      }
       
       // Convertir a array y calcular métricas
       const result: UniversityActivation[] = Array.from(universityMap.entries())
@@ -289,11 +367,13 @@ class ActivationAnalyticsService {
       const [
         funnelSteps,
         universityBreakdown,
+        universityDistribution,
         timeToActivationData,
         onboardingAnalysis
       ] = await Promise.all([
         this.getActivationFunnel(),
         this.getUniversityActivation(),
+        this.getUniversityDistribution(),
         this.getTimeToActivationData(),
         this.getOnboardingAnalysis()
       ]);
@@ -323,6 +403,7 @@ class ActivationAnalyticsService {
       const completeAnalytics: ActivationAnalytics = {
         funnelSteps,
         universityBreakdown,
+        universityDistribution,
         timeToActivationData,
         onboardingAnalysis,
         criticalMetrics

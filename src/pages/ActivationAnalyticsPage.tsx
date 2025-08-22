@@ -251,35 +251,38 @@ const ActivationAnalyticsPage: React.FC = () => {
             </CardBody>
           </Card>
 
-          {/* Análisis por Universidad */}
+          {/* Distribución por Universidad (n y %) */}
           <Card>
             <CardHeader>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                🎓 Activación por Universidad
+                🎓 Distribución por Universidad
               </h3>
             </CardHeader>
             <CardBody>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={analytics.universityBreakdown.slice(0, 8)} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis 
-                    dataKey="university" 
-                    angle={-45}
-                    textAnchor="end"
-                    height={100}
-                    fontSize={10}
-                  />
-                  <YAxis />
-                  <Tooltip 
-                    formatter={(value: any, name: string) => [
-                      name === 'activationRate' ? `${value.toFixed(1)}%` : `${value} usuarios`,
-                      name === 'activationRate' ? 'Tasa Activación' : name === 'totalUsers' ? 'Total Usuarios' : 'Usuarios Activados'
-                    ]}
-                  />
-                  <Bar dataKey="totalUsers" fill="#94A3B8" name="totalUsers" />
-                  <Bar dataKey="activatedUsers" fill="#10B981" name="activatedUsers" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="overflow-auto max-h-[420px]">
+                <table className="min-w-full text-sm">
+                  <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
+                    <tr>
+                      <th className="text-left px-3 py-2">Universidad</th>
+                      <th className="text-right px-3 py-2">Estudiantes</th>
+                      <th className="text-right px-3 py-2">Porcentaje</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {analytics.universityDistribution.slice(0, 50).map(row => (
+                      <tr key={row.university} className="border-b border-gray-100/10">
+                        <td className="px-3 py-2">{row.university}</td>
+                        <td className="px-3 py-2 text-right">{row.users.toLocaleString()}</td>
+                        <td className="px-3 py-2 text-right">
+                          <Chip size="sm" color="primary" variant="flat">
+                            {row.percentage.toFixed(1)}%
+                          </Chip>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </CardBody>
           </Card>
         </div>

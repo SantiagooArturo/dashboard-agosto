@@ -8,6 +8,9 @@ import CVAnalysisPage from './pages/CVAnalysisPage';
 import FirebaseAnalysisPage from './pages/FirebaseAnalysisPage';
 import ActivationAnalyticsPage from './pages/ActivationAnalyticsPage';
 import EngagementAnalyticsPage from './pages/EngagementAnalyticsPage';
+import UniversitiesPage from './pages/UniversitiesPage';
+import UniversityReportsPage from './pages/UniversityReportsPage';
+import Dashboard2Page from './pages/Dashboard2Page';
 import MonetizationAnalyticsPage from './pages/MonetizationAnalyticsPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { 
@@ -18,14 +21,15 @@ import {
   Database,
   TrendingUp,
   Heart,
-
+  GraduationCap,
+  BarChart3,
   LogOut,
   Moon,
   Sun
 } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 
-type Page = 'dashboard' | 'users' | 'transactions' | 'cv-analysis' | 'firebase-analysis' | 'activation-analytics' | 'engagement-analytics' | 'monetization-analytics' | 'jobs';
+type Page = 'dashboard' | 'dashboard2' | 'users' | 'transactions' | 'cv-analysis' | 'firebase-analysis' | 'activation-analytics' | 'universities-analytics' | 'university-reports' | 'engagement-analytics' | 'monetization-analytics' | 'jobs';
 
 const AppContent: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -52,11 +56,14 @@ const AppContent: React.FC = () => {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
+    // { id: 'dashboard2', label: 'Dashboard 2', icon: BarChart3 },
     { id: 'users', label: 'Usuarios', icon: Users },
     { id: 'transactions', label: 'Transacciones', icon: CreditCard },
     { id: 'cv-analysis', label: 'Análisis CV', icon: FileText },
     { id: 'firebase-analysis', label: 'Firebase DB', icon: Database },
     { id: 'activation-analytics', label: 'Analytics: Activación', icon: TrendingUp },
+    { id: 'universities-analytics', label: 'Universidades', icon: GraduationCap },
+    { id: 'university-reports', label: 'REPORTES UNI', icon: BarChart3 },
     { id: 'engagement-analytics', label: 'Analytics: Engagement', icon: Heart },
     // { id: 'monetization-analytics', label: 'Analytics: Monetización', icon: DollarSign },
     // { id: 'jobs', label: 'Empleos', icon: Briefcase },
@@ -66,6 +73,8 @@ const AppContent: React.FC = () => {
     switch (currentPage) {
       case 'dashboard':
         return <Dashboard />;
+      case 'dashboard2':
+        return <Dashboard2Page />;
       case 'users':
         return <UsersPage />;
       case 'transactions':
@@ -76,6 +85,10 @@ const AppContent: React.FC = () => {
         return <FirebaseAnalysisPage />;
       case 'activation-analytics':
         return <ActivationAnalyticsPage />;
+      case 'universities-analytics':
+        return <UniversitiesPage />;
+      case 'university-reports':
+        return <UniversityReportsPage />;
       case 'engagement-analytics':
         return <EngagementAnalyticsPage />;
       case 'monetization-analytics':
