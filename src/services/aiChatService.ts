@@ -318,15 +318,7 @@ Responde de manera concisa, informativa y siempre con un enfoque positivo sobre 
     return `Me complace informar que ${universityName} presenta indicadores muy positivos. Con ${context.totalStudents.toLocaleString()} estudiantes registrados, ${activationRate}% de activación, score promedio de CV de ${context.averageScore}% y herramientas principales como ${context.topTools.slice(0,2).join(' y ')}, los datos muestran un excelente nivel de compromiso con el desarrollo profesional.`;
   }
 
-  // Respuesta de fallback simple (método legacy)
-  private getFallbackResponse(question: string, university: string): string {
-    const normalizedUniversity = this.normalizeUniversityName(university);
-    const universityName = typeof normalizedUniversity === 'string' && normalizedUniversity.length > 0 
-      ? normalizedUniversity 
-      : 'la universidad seleccionada';
-    
-    return `Excelente pregunta sobre ${universityName}. Basándome en nuestros datos, los estudiantes de esta universidad muestran un rendimiento muy prometedor con altos niveles de engagement y uso activo de nuestras herramientas de desarrollo profesional.`;
-  }
+
 
   // Obtener lista de universidades disponibles (mismas que REPORTES UNI)
   async getAvailableUniversities(): Promise<string[]> {
