@@ -68,10 +68,10 @@ const UniversitiesPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Cargando distribución por universidad...</p>
+          <p className="text-gray-800 dark:text-gray-700">Cargando distribución por universidad...</p>
         </div>
       </div>
     );
@@ -79,7 +79,7 @@ const UniversitiesPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <Card className="max-w-md mx-auto border-l-4 border-l-red-500">
           <CardBody>
             <p className="text-red-600">{error}</p>
@@ -94,41 +94,41 @@ const UniversitiesPage: React.FC = () => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header y KPIs */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Universidades</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">Universidades</h1>
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Distribución de estudiantes por universidad (solo lectura)
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Total estudiantes</p>
+              <p className="text-sm text-gray-700 dark:text-gray-600">Total estudiantes</p>
               <p className="text-2xl font-bold">{totalUsers.toLocaleString()}</p>
             </CardBody>
           </Card>
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Universidades detectadas</p>
+              <p className="text-sm text-gray-700 dark:text-gray-600">Universidades detectadas</p>
               <p className="text-2xl font-bold">{totalUniversities.toLocaleString()}</p>
             </CardBody>
           </Card>
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Cobertura Top 10</p>
+              <p className="text-sm text-gray-700 dark:text-gray-600">Cobertura Top 10</p>
               <p className="text-2xl font-bold">{topCoverage.toFixed(1)}%</p>
             </CardBody>
           </Card>
         </div>
 
         {/* Controles */}
-        <Card>
+        <Card className="bg-white border border-gray-200 shadow-lg">
           <CardBody>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <Input
@@ -139,7 +139,7 @@ const UniversitiesPage: React.FC = () => {
               />
 
               <div>
-                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-2">Ordenar por</label>
+                <label className="block text-xs text-gray-700 dark:text-gray-600 mb-2">Ordenar por</label>
                 <select
                   className="w-full bg-transparent border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
                   value={sortBy}
@@ -152,7 +152,7 @@ const UniversitiesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-2">Mostrar</label>
+                <label className="block text-xs text-gray-700 dark:text-gray-600 mb-2">Mostrar</label>
                 <select
                   className="w-full bg-transparent border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2"
                   value={limit}
@@ -203,7 +203,7 @@ const UniversitiesPage: React.FC = () => {
           <CardBody>
             <div className="overflow-auto max-h-[520px]">
               <table className="min-w-full text-sm">
-                <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
+                <thead className="sticky top-0 bg-white border-b-2 border-gray-200 z-10">
                   <tr>
                     <th className="text-left px-3 py-2">Universidad</th>
                     <th className="text-right px-3 py-2">Estudiantes</th>

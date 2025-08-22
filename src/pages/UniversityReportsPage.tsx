@@ -161,12 +161,12 @@ const UniversityReportsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-              <p className="text-gray-600 dark:text-gray-400">Analizando datos de la universidad...</p>
+              <p className="text-gray-800 dark:text-gray-700">Analizando datos de la universidad...</p>
             </div>
           </div>
         </div>
@@ -175,17 +175,17 @@ const UniversityReportsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-2">
                 📊 Reportes por Universidad
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-800 dark:text-gray-700">
                 Análisis detallado de empleabilidad y preparación laboral por universidad
               </p>
             </div>
@@ -204,12 +204,12 @@ const UniversityReportsPage: React.FC = () => {
         </div>
 
         {/* Selector de Universidad */}
-        <Card className="mb-8">
+        <Card className="mb-8 bg-white border border-gray-200 shadow-lg">
           <CardBody className="p-6">
             <div className="flex items-center gap-4">
               <FileText className="w-6 h-6 text-blue-600" />
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900 mb-2">
                   Seleccionar Universidad
                 </h3>
                 <Select
@@ -233,7 +233,7 @@ const UniversityReportsPage: React.FC = () => {
         </Card>
 
         {error && (
-          <Card className="mb-8 border-red-200 dark:border-red-800">
+          <Card className="mb-8 bg-white border border-red-200 shadow-lg">
             <CardBody className="p-6">
               <div className="text-red-600 dark:text-red-400">
                 ❌ {error}
@@ -246,14 +246,14 @@ const UniversityReportsPage: React.FC = () => {
           <>
             {/* Métricas Principales */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-700">
                         Estudiantes Evaluados
                       </p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                         {metrics.studentsEvaluated}
                       </p>
                     </div>
@@ -262,14 +262,14 @@ const UniversityReportsPage: React.FC = () => {
                 </CardBody>
               </Card>
 
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-700">
                         Búsquedas de Trabajo
                       </p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                         +{metrics.jobSearches}
                       </p>
                     </div>
@@ -278,14 +278,14 @@ const UniversityReportsPage: React.FC = () => {
                 </CardBody>
               </Card>
 
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-700">
                         CVs Analizados con IA
                       </p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                         +{metrics.cvAnalyzed}
                       </p>
                     </div>
@@ -294,14 +294,14 @@ const UniversityReportsPage: React.FC = () => {
                 </CardBody>
               </Card>
 
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-700">
                         Entrevistas Simuladas
                       </p>
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <p className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                         +{metrics.interviewsSimulated}
                       </p>
                     </div>
@@ -314,9 +314,9 @@ const UniversityReportsPage: React.FC = () => {
             {/* Principales Hallazgos */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
               {/* Top 3 Áreas */}
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900 mb-4 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-blue-600" />
                     Top 3 Áreas Más Demandadas
                   </h3>
@@ -329,15 +329,15 @@ const UniversityReportsPage: React.FC = () => {
                               {index + 1}
                             </span>
                           </div>
-                          <span className="font-medium text-gray-900 dark:text-white">
+                          <span className="font-medium text-gray-900 dark:text-gray-900">
                             {area.area}
                           </span>
                         </div>
                         <div className="text-right">
-                          <p className="font-bold text-gray-900 dark:text-white">
+                          <p className="font-bold text-gray-900 dark:text-gray-900">
                             {area.count}
                           </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <p className="text-sm text-gray-800 dark:text-gray-700">
                             {area.percentage}%
                           </p>
                         </div>
@@ -348,9 +348,9 @@ const UniversityReportsPage: React.FC = () => {
               </Card>
 
               {/* Nivel de Actividad */}
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900 mb-4 flex items-center gap-2">
                     <Activity className="w-5 h-5 text-green-600" />
                     Distribución de Actividad
                   </h3>
@@ -379,9 +379,9 @@ const UniversityReportsPage: React.FC = () => {
             </div>
 
             {/* Indicadores de Preparación Laboral */}
-            <Card className="mb-8">
+            <Card className="mb-8 bg-white border border-gray-200 shadow-lg">
               <CardBody className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900 mb-6 flex items-center gap-2">
                   <Target className="w-5 h-5 text-purple-600" />
                   Indicadores de Preparación Laboral
                 </h3>
@@ -393,7 +393,7 @@ const UniversityReportsPage: React.FC = () => {
                         {metrics.preparationIndicators.cvAlignedPercentage}%
                       </span>
                     </div>
-                    <p className="font-medium text-gray-900 dark:text-white">CV Alineado al Formato Ideal</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-900">CV Alineado al Formato Ideal</p>
                   </div>
                   
                   <div className="text-center">
@@ -402,7 +402,7 @@ const UniversityReportsPage: React.FC = () => {
                         {metrics.preparationIndicators.highPerformanceInterviewsPercentage}%
                       </span>
                     </div>
-                    <p className="font-medium text-gray-900 dark:text-white">Entrevistas con Alto Desempeño</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-900">Entrevistas con Alto Desempeño</p>
                   </div>
                   
                   <div className="text-center">
@@ -411,7 +411,7 @@ const UniversityReportsPage: React.FC = () => {
                         {metrics.preparationIndicators.jobMatchPercentage}%
                       </span>
                     </div>
-                    <p className="font-medium text-gray-900 dark:text-white">Match con Vacantes Disponibles</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-900">Match con Vacantes Disponibles</p>
                   </div>
                 </div>
 
@@ -436,37 +436,37 @@ const UniversityReportsPage: React.FC = () => {
 
             {/* Estadísticas Adicionales */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Estudiantes con CV</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-900 mb-3">Estudiantes con CV</h4>
                   <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {metrics.studentsWithCV}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-800 dark:text-gray-700">
                     {Math.round((metrics.studentsWithCV / metrics.studentsEvaluated) * 100)}% del total
                   </p>
                 </CardBody>
               </Card>
 
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Perfiles Completados</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-900 mb-3">Perfiles Completados</h4>
                   <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                     {metrics.profileCompleted}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-800 dark:text-gray-700">
                     {Math.round((metrics.profileCompleted / metrics.studentsEvaluated) * 100)}% del total
                   </p>
                 </CardBody>
               </Card>
 
-              <Card>
+              <Card className="bg-white border border-gray-200 shadow-lg">
                 <CardBody className="p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Onboarding Completado</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-900 mb-3">Onboarding Completado</h4>
                   <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                     {metrics.onboardingCompleted}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-800 dark:text-gray-700">
                     {Math.round((metrics.onboardingCompleted / metrics.studentsEvaluated) * 100)}% del total
                   </p>
                 </CardBody>
@@ -474,10 +474,10 @@ const UniversityReportsPage: React.FC = () => {
             </div>
 
             {/* Lista de Estudiantes */}
-            <Card className="mt-8">
+            <Card className="mt-8 bg-white border border-gray-200 shadow-lg">
               <CardBody className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900 flex items-center gap-2">
                     <Users className="w-5 h-5 text-blue-600" />
                     Lista de Estudiantes ({filteredStudents.length})
                   </h3>
@@ -487,7 +487,7 @@ const UniversityReportsPage: React.FC = () => {
                       placeholder="Buscar por nombre o email..."
                       value={searchQuery}
                       onValueChange={setSearchQuery}
-                      startContent={<Search className="w-4 h-4 text-gray-400" />}
+                      startContent={<Search className="w-4 h-4 text-gray-800" />}
                       className="w-64"
                     />
                   </div>
@@ -496,14 +496,14 @@ const UniversityReportsPage: React.FC = () => {
                 {studentsLoading ? (
                   <div className="text-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Cargando estudiantes...</p>
+                    <p className="text-gray-800">Cargando estudiantes...</p>
                   </div>
                 ) : (
                   <>
                     {/* Tabla de Estudiantes */}
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
-                        <thead className="bg-gray-50 dark:bg-gray-800">
+                        <thead className="bg-white border-b-2 border-gray-200">
                           <tr>
                             <th className="text-left px-4 py-3 font-medium">Estudiante</th>
                             <th className="text-center px-4 py-3 font-medium">CV</th>
@@ -516,13 +516,13 @@ const UniversityReportsPage: React.FC = () => {
                         </thead>
                         <tbody>
                           {paginatedStudents.map((student) => (
-                            <tr key={student.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                            <tr key={student.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
                               <td className="px-4 py-3">
                                 <div>
-                                  <p className="font-medium text-gray-900 dark:text-white">
+                                  <p className="font-medium text-gray-900 dark:text-gray-900">
                                     {student.name}
                                   </p>
-                                  <p className="text-xs text-gray-500">{student.email}</p>
+                                  <p className="text-xs text-gray-700">{student.email}</p>
                                 </div>
                               </td>
                               <td className="text-center px-4 py-3">

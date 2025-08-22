@@ -90,7 +90,7 @@ const CVAnalysisPage: React.FC = () => {
       case 'error':
         return <XCircle className="w-4 h-4 text-red-500" />;
       default:
-        return <FileText className="w-4 h-4 text-gray-500" />;
+        return <FileText className="w-4 h-4 text-gray-700" />;
     }
   };
 
@@ -123,7 +123,7 @@ const CVAnalysisPage: React.FC = () => {
   };
 
   const getScoreColor = (score?: number) => {
-    if (!score) return 'text-gray-500';
+    if (!score) return 'text-gray-700';
     if (score >= 80) return 'text-green-600 dark:text-green-400';
     if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-red-600 dark:text-red-400';
@@ -146,25 +146,25 @@ const CVAnalysisPage: React.FC = () => {
             
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-1">
-                <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-900 truncate">
                   {cv.fileName}
                 </h3>
                 {getStatusChip(cv.status)}
               </div>
               
-              <div className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-400 mb-2">
+              <div className="flex items-center space-x-1 text-sm text-gray-800 dark:text-gray-700 mb-2">
                 <User className="w-4 h-4" />
                 <span className="truncate">{cv.userEmail}</span>
               </div>
               
               {cv.position && (
-                <div className="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-400 mb-2">
+                <div className="flex items-center space-x-1 text-sm text-gray-800 dark:text-gray-700 mb-2">
                   <Briefcase className="w-4 h-4" />
                   <span className="truncate">{cv.position}</span>
                 </div>
               )}
               
-              <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-500">
+              <div className="flex items-center space-x-4 text-xs text-gray-700 dark:text-gray-700">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-3 h-3" />
                   <span>{formatDate(cv.createdAt)}</span>
@@ -185,7 +185,7 @@ const CVAnalysisPage: React.FC = () => {
                 <div className={`text-xl font-bold ${getScoreColor(cv.score)}`}>
                   {cv.score}
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-gray-700 dark:text-gray-600">
                   <Star className="w-3 h-3 inline mr-1" />
                   Score
                 </div>
@@ -209,7 +209,7 @@ const CVAnalysisPage: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
               {cv.result.strengths && (
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Fortalezas</p>
+                  <p className="text-xs text-gray-700 dark:text-gray-600">Fortalezas</p>
                   <p className="font-semibold text-green-600 dark:text-green-400">
                     {Array.isArray(cv.result.strengths) ? cv.result.strengths.length : 'N/A'}
                   </p>
@@ -217,7 +217,7 @@ const CVAnalysisPage: React.FC = () => {
               )}
               {cv.result.improvements && (
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Mejoras</p>
+                  <p className="text-xs text-gray-700 dark:text-gray-600">Mejoras</p>
                   <p className="font-semibold text-orange-600 dark:text-orange-400">
                     {Array.isArray(cv.result.improvements) ? cv.result.improvements.length : 'N/A'}
                   </p>
@@ -225,7 +225,7 @@ const CVAnalysisPage: React.FC = () => {
               )}
               {cv.result.overall_rating && (
                 <div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Calificación</p>
+                  <p className="text-xs text-gray-700 dark:text-gray-600">Calificación</p>
                   <p className="font-semibold text-blue-600 dark:text-blue-400">
                     {cv.result.overall_rating}/10
                   </p>
@@ -239,15 +239,15 @@ const CVAnalysisPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
               Análisis de CVs
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Historial de todos los análisis de CV realizados
             </p>
           </div>
@@ -278,7 +278,7 @@ const CVAnalysisPage: React.FC = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white border border-gray-200 text-gray-900 dark:text-gray-900"
           >
             <option value="all">Todos los estados</option>
             <option value="completed">Completados</option>
@@ -295,7 +295,7 @@ const CVAnalysisPage: React.FC = () => {
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
               {completedAnalysis}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Completados
             </div>
           </CardBody>
@@ -306,7 +306,7 @@ const CVAnalysisPage: React.FC = () => {
             <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
               {pendingAnalysis}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Procesando
             </div>
           </CardBody>
@@ -317,7 +317,7 @@ const CVAnalysisPage: React.FC = () => {
             <div className="text-2xl font-bold text-red-600 dark:text-red-400">
               {errorAnalysis}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Con Errores
             </div>
           </CardBody>
@@ -328,7 +328,7 @@ const CVAnalysisPage: React.FC = () => {
             <div className={`text-2xl font-bold ${getScoreColor(averageScore)}`}>
               {averageScore ? averageScore.toFixed(1) : 'N/A'}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Score Promedio
             </div>
           </CardBody>
@@ -350,7 +350,7 @@ const CVAnalysisPage: React.FC = () => {
       
       {filteredCVs.length === 0 && !loading && (
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-700 dark:text-gray-600">
             No se encontraron análisis que coincidan con los filtros.
           </p>
         </div>

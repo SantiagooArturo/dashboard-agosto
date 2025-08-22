@@ -100,15 +100,15 @@ const UsersPage: React.FC = () => {
     </Button>
   );
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
               Gestión de Usuarios
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Administra usuarios y sus cuentas de créditos
             </p>
           </div>
@@ -144,45 +144,45 @@ const UsersPage: React.FC = () => {
 
       {/* Estadísticas rápidas */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card>
+        <Card className="bg-white border border-gray-200 shadow-lg">
           <CardBody className="text-center">
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
               {users.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Total Usuarios
             </div>
           </CardBody>
         </Card>
         
-        <Card>
+        <Card className="bg-white border border-gray-200 shadow-lg">
           <CardBody className="text-center">
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
               {users.filter(u => u.creditAccount && u.creditAccount.credits > 0).length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Con Créditos
             </div>
           </CardBody>
         </Card>
         
-        <Card>
+        <Card className="bg-white border border-gray-200 shadow-lg">
           <CardBody className="text-center">
             <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
               {users.reduce((sum, u) => sum + u.totalTransactions, 0)}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Total Transacciones
             </div>
           </CardBody>
         </Card>
         
-        <Card>
+        <Card className="bg-white border border-gray-200 shadow-lg">
           <CardBody className="text-center">
             <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
               {users.filter(u => u.disabled).length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Deshabilitados
             </div>
           </CardBody>
@@ -190,7 +190,7 @@ const UsersPage: React.FC = () => {
       </div>
 
       {/* Users Table */}
-      <Card>
+      <Card className="bg-white border border-gray-200 shadow-lg">
         <CardHeader>
           <h3 className="text-lg font-semibold">
             Lista de Usuarios ({filteredUsers.length})
@@ -283,7 +283,7 @@ const UsersPage: React.FC = () => {
       </Card>
         {filteredUsers.length === 0 && !loading && (
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-700 dark:text-gray-400">
             No se encontraron usuarios que coincidan con la búsqueda.
           </p>
         </div>
@@ -309,7 +309,7 @@ const UsersPage: React.FC = () => {
                 <h3 className="text-xl font-semibold">
                   {selectedUser?.displayName || 'Usuario Anónimo'}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-800 dark:text-gray-700">
                   {selectedUser?.email}
                 </p>
               </div>
@@ -322,8 +322,8 @@ const UsersPage: React.FC = () => {
                 <div>
                   <h4 className="text-lg font-semibold mb-3">Información Básica</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Estado</label>
+                    <div className="bg-white border border-gray-200 shadow-sm p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-800 dark:text-gray-700">Estado</label>
                       <div className="mt-1">
                         <Chip
                           color={selectedUser.disabled ? 'danger' : 'success'}
@@ -334,16 +334,16 @@ const UsersPage: React.FC = () => {
                         </Chip>
                       </div>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Fecha de Registro</label>
+                    <div className="bg-white border border-gray-200 shadow-sm p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-800 dark:text-gray-700">Fecha de Registro</label>
                       <p className="mt-1 font-medium">{formatDate(selectedUser.createdAt)}</p>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">UID</label>
+                    <div className="bg-white border border-gray-200 shadow-sm p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-800 dark:text-gray-700">UID</label>
                       <p className="mt-1 font-mono text-xs">{selectedUser.id}</p>
                     </div>
-                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Rol</label>
+                    <div className="bg-white border border-gray-200 shadow-sm p-3 rounded-lg">
+                      <label className="text-sm font-medium text-gray-800 dark:text-gray-700">Rol</label>
                       <div className="mt-1">
                         {selectedUser.customClaims?.role === 'admin' ? (
                           <Chip size="sm" color="warning" variant="flat">
@@ -417,7 +417,7 @@ const UsersPage: React.FC = () => {
                 {selectedUser.lastTransaction && (
                   <div>
                     <h4 className="text-lg font-semibold mb-3">Última Transacción</h4>
-                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                    <div className="bg-white border border-gray-200 shadow-sm p-4 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
                           <Chip 
@@ -429,7 +429,7 @@ const UsersPage: React.FC = () => {
                           </Chip>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                          <p className="text-sm text-gray-800 dark:text-gray-700">
                             {formatDate(selectedUser.lastTransaction.createdAt)}
                           </p>
                         </div>

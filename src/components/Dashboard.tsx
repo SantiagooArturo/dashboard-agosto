@@ -107,16 +107,16 @@ const Dashboard: React.FC = () => {
     change?: string;
     subtitle?: string;
   }) => (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
       <CardBody>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{title}</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-sm text-gray-800 dark:text-gray-700">{title}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-900">
               {loading ? '...' : typeof value === 'number' ? value.toLocaleString() : value}
             </p>
             {subtitle && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>
+              <p className="text-xs text-gray-700 dark:text-gray-600 mt-1">{subtitle}</p>
             )}
             {change && (
               <Chip size="sm" color="success" variant="flat" className="mt-1">
@@ -133,17 +133,17 @@ const Dashboard: React.FC = () => {
     </Card>
   );
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-white">
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                 Vista Panorámica
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-gray-800 dark:text-gray-700 mt-1">
                 Resumen general del sistema y estadísticas principales
               </p>
             </div>
@@ -213,9 +213,9 @@ const Dashboard: React.FC = () => {
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">          {/* Monthly Trends */}
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 Tendencias de Servicios (Últimos 6 meses)
               </h3>
             </CardHeader>
@@ -247,9 +247,9 @@ const Dashboard: React.FC = () => {
           </Card>
 
           {/* Service Distribution */}
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 Distribución de Servicios Utilizados
               </h3>
             </CardHeader>

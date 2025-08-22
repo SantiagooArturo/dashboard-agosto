@@ -181,13 +181,13 @@ const TransactionsPage: React.FC = () => {
             
             <div className="flex-1">
               <div className="flex items-center space-x-2">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-900">
                   {getTypeLabel(transaction.type)}
                 </h3>
                 {transaction.status && getStatusChip(transaction.status)}
               </div>
               
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-800 dark:text-gray-700 mt-1">
                 {transaction.description}
               </p>
               
@@ -217,7 +217,7 @@ const TransactionsPage: React.FC = () => {
             </div>
             
             {transaction.paymentAmount && (
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-800 dark:text-gray-700">
                 ${transaction.paymentAmount.toFixed(2)}
               </div>
             )}
@@ -234,15 +234,15 @@ const TransactionsPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
               Transacciones de Créditos
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Historial completo de todas las transacciones
             </p>
           </div>
@@ -265,7 +265,7 @@ const TransactionsPage: React.FC = () => {
               placeholder="Buscar por descripción, usuario o ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              startContent={<Search className="w-4 h-4 text-gray-400" />}
+              startContent={<Search className="w-4 h-4 text-gray-600" />}
               variant="bordered"
             />
           </div>
@@ -273,7 +273,7 @@ const TransactionsPage: React.FC = () => {
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white border border-gray-200 text-gray-900 dark:text-gray-900"
           >
             <option value="all">Todos los tipos</option>
             <option value="purchase">Compras</option>
@@ -293,7 +293,7 @@ const TransactionsPage: React.FC = () => {
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
               S/ {totalRevenue.toFixed(2)}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Ingresos Totales
             </div>
           </CardBody>
@@ -304,7 +304,7 @@ const TransactionsPage: React.FC = () => {
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
               {totalCreditsDistributed.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Créditos Distribuidos
             </div>
           </CardBody>
@@ -315,7 +315,7 @@ const TransactionsPage: React.FC = () => {
             <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
               {totalCreditsSpent.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Créditos Consumidos
             </div>
           </CardBody>
@@ -326,7 +326,7 @@ const TransactionsPage: React.FC = () => {
             <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
               {pendingTransactions}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-gray-800 dark:text-gray-700">
               Pendientes
             </div>
           </CardBody>
@@ -348,7 +348,7 @@ const TransactionsPage: React.FC = () => {
       
       {filteredTransactions.length === 0 && !loading && (
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-gray-600">
             No se encontraron transacciones que coincidan con los filtros.
           </p>
         </div>

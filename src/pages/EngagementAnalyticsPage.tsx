@@ -61,14 +61,14 @@ const EngagementAnalyticsPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-900 mb-2">
               Analizando Engagement y Retención
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-800 dark:text-gray-700">
               Calculando métricas de comportamiento de usuarios...
             </p>
           </div>
@@ -79,9 +79,9 @@ const EngagementAnalyticsPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <div className="max-w-7xl mx-auto">
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="text-center py-12">
               <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-red-600">Error al cargar analytics</h3>
@@ -99,16 +99,16 @@ const EngagementAnalyticsPage: React.FC = () => {
   if (!analytics) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
               📈 Engagement y Retención
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Análisis de comportamiento y retención de usuarios
             </p>
           </div>
@@ -119,49 +119,49 @@ const EngagementAnalyticsPage: React.FC = () => {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
                 <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Usuarios Activos (Mensual)</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Usuarios Activos (Mensual)</p>
                 <p className="text-2xl font-bold">{analytics.overview.monthlyActiveUsers}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
                 <Activity className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Usuarios Activos (Semanal)</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Usuarios Activos (Semanal)</p>
                 <p className="text-2xl font-bold">{analytics.overview.weeklyActiveUsers}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
                 <Zap className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Sesiones Promedio</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Sesiones Promedio</p>
                 <p className="text-2xl font-bold">{analytics.overview.averageSessionsPerUser.toFixed(1)}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-red-100 dark:bg-red-900 rounded-lg">
                 <TrendingDown className="w-6 h-6 text-red-600 dark:text-red-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Tasa de Churn</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Tasa de Churn</p>
                 <p className="text-2xl font-bold">{analytics.overview.churnRate.toFixed(1)}%</p>
               </div>
             </CardBody>
@@ -181,22 +181,22 @@ const EngagementAnalyticsPage: React.FC = () => {
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600">{analytics.retention.totalCohort}</div>
                 <div className="text-sm text-gray-600">Cohorte Total</div>
-                <div className="text-xs text-gray-500">Usuarios registrados 30+ días</div>
+                <div className="text-xs text-gray-700">Usuarios registrados 30+ días</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600">{analytics.retention.day1.toFixed(1)}%</div>
                 <div className="text-sm text-gray-600">Retención Día 1</div>
-                <div className="text-xs text-gray-500">Volvieron al día siguiente</div>
+                <div className="text-xs text-gray-700">Volvieron al día siguiente</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-yellow-600">{analytics.retention.day7.toFixed(1)}%</div>
                 <div className="text-sm text-gray-600">Retención Día 7</div>
-                <div className="text-xs text-gray-500">Activos en la primera semana</div>
+                <div className="text-xs text-gray-700">Activos en la primera semana</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600">{analytics.retention.day30.toFixed(1)}%</div>
                 <div className="text-sm text-gray-600">Retención Día 30</div>
-                <div className="text-xs text-gray-500">Activos después de un mes</div>
+                <div className="text-xs text-gray-700">Activos después de un mes</div>
               </div>
             </div>
           </CardBody>
@@ -206,7 +206,7 @@ const EngagementAnalyticsPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
           {/* Tool Popularity */}
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardHeader>
               <h2 className="text-xl font-semibold">Popularidad de Herramientas</h2>
             </CardHeader>
@@ -237,7 +237,7 @@ const EngagementAnalyticsPage: React.FC = () => {
           </Card>
 
           {/* User Segments */}
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardHeader>
               <h2 className="text-xl font-semibold">Segmentación de Usuarios</h2>
             </CardHeader>
@@ -276,10 +276,10 @@ const EngagementAnalyticsPage: React.FC = () => {
           <CardBody>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {analytics.sessionPatterns.map((pattern, index) => (
-                <div key={index} className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div key={index} className="text-center p-4 bg-white border border-gray-200 shadow-sm rounded-lg">
                   <div className="text-2xl font-bold text-blue-600">{pattern.activeUsers}</div>
                   <div className="text-sm font-medium">{pattern.timeRange}</div>
-                  <div className="text-xs text-gray-500">{pattern.frequency}</div>
+                  <div className="text-xs text-gray-700">{pattern.frequency}</div>
                 </div>
               ))}
             </div>
@@ -351,7 +351,7 @@ const EngagementAnalyticsPage: React.FC = () => {
           <CardBody>
             <div className="space-y-4">
               {analytics.userSegments.map((segment, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div key={index} className="flex items-center justify-between p-4 bg-white border border-gray-200 shadow-sm rounded-lg">
                   <div className="flex items-center gap-3">
                     <div 
                       className="w-4 h-4 rounded-full" 
@@ -359,7 +359,7 @@ const EngagementAnalyticsPage: React.FC = () => {
                     ></div>
                     <div>
                       <div className="font-medium">{segment.segment}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">{segment.description}</div>
+                      <div className="text-sm text-gray-800 dark:text-gray-700">{segment.description}</div>
                     </div>
                   </div>
                   <div className="text-right">
@@ -411,7 +411,7 @@ const EngagementAnalyticsPage: React.FC = () => {
         </Card>
 
         {/* Footer */}
-        <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-center text-sm text-gray-700 dark:text-gray-400">
           Análisis generado el {analytics.generatedAt.toLocaleString('es-ES')}
         </div>
       </div>

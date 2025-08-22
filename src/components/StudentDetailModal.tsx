@@ -131,11 +131,11 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-gray-500" />
+                    <Mail className="w-4 h-4 text-gray-700" />
                     <span className="text-sm">{student.email}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gray-500" />
+                    <Calendar className="w-4 h-4 text-gray-700" />
                     <span className="text-sm">Registro: {formatDate(student.registrationDate)}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -146,7 +146,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                       </>
                     ) : (
                       <>
-                        <Clock className="w-4 h-4 text-gray-500" />
+                        <Clock className="w-4 h-4 text-gray-700" />
                         <span className="text-sm">Sin actividad reciente</span>
                       </>
                     )}
@@ -283,7 +283,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                         <CardBody className="p-4">
                           <div className="flex items-center justify-between mb-3">
                             <div>
-                              <p className="font-medium text-gray-900 dark:text-white">{result.position}</p>
+                              <p className="font-medium text-gray-900 dark:text-gray-900">{result.position}</p>
                               <p className="text-sm text-gray-600">
                                 {formatDate(result.date)} - Estado: {result.status}
                               </p>
@@ -310,11 +310,11 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                   <h4 className="font-medium text-blue-700 dark:text-blue-300 mb-2">
                                     📊 Análisis Principal
                                   </h4>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800">
                                     <strong>Estado:</strong> {result.fullResult.mainly_analysis.estado} 
                                     ({result.fullResult.mainly_analysis.porcentaje}%)
                                   </p>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800 mt-2">
                                     {result.fullResult.mainly_analysis.analisis}
                                   </p>
                                 </div>
@@ -342,7 +342,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                   <h4 className="font-medium text-orange-700 dark:text-orange-300 mb-2">
                                     ✏️ Ortografía
                                   </h4>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800">
                                     {result.fullResult.spelling.errores} errores detectados
                                   </p>
                                   {result.fullResult.spelling.detalle_errores && (
@@ -363,7 +363,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                   <h4 className="font-medium text-purple-700 dark:text-purple-300 mb-2">
                                     💪 Verbos de Impacto
                                   </h4>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800">
                                     Nivel: {result.fullResult.verbos_impact.nivel}/10
                                   </p>
                                   <p className="text-xs text-gray-600 mt-1">
@@ -404,13 +404,13 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {/* CV Original */}
                         {student.cvEvolution.original && (
-                          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                            <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">📄 CV Original</h4>
-                            <div className="space-y-1 text-sm">
+                          <div className="p-4 bg-gray-800 border border-gray-600 shadow-sm rounded-lg">
+                            <h4 className="font-medium text-white mb-2">📄 CV Original</h4>
+                            <div className="space-y-1 text-sm text-gray-200">
                               <p><strong>Score:</strong> {student.cvEvolution.original.score ?? 'N/A'}%</p>
                               <p><strong>Errores:</strong> {student.cvEvolution.original.errors ?? 0}</p>
                               <p><strong>Verbos:</strong> Nivel {student.cvEvolution.original.verbLevel ?? 0}</p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-gray-400">
                                 {student.cvEvolution.original.uploadDate ? formatDate(student.cvEvolution.original.uploadDate) : 'Fecha no disponible'}
                               </p>
                             </div>
@@ -439,7 +439,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                               <p><strong>Score:</strong> {student.cvEvolution.improved.score ?? 'N/A'}%</p>
                               <p><strong>Errores:</strong> {student.cvEvolution.improved.errors ?? 0}</p>
                               <p><strong>Verbos:</strong> Nivel {student.cvEvolution.improved.verbLevel ?? 0}</p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-gray-700">
                                 {student.cvEvolution.improved.uploadDate ? formatDate(student.cvEvolution.improved.uploadDate) : 'Fecha no disponible'}
                               </p>
                             </div>
@@ -492,17 +492,17 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Habilidades Antes */}
-                        <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                          <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-3">🔹 Antes</h4>
+                        <div className="p-4 bg-gray-800 border border-gray-600 shadow-sm rounded-lg">
+                          <h4 className="font-medium text-white mb-3">🔹 Antes</h4>
                           <div className="space-y-1">
                             {student.skillsProgression.before.length > 0 ? (
                               student.skillsProgression.before.map((skill, index) => (
-                                <div key={index} className="text-sm text-gray-600 dark:text-gray-400">
+                                <div key={index} className="text-sm text-gray-200">
                                   • {skill}
                                 </div>
                               ))
                             ) : (
-                              <div className="text-sm text-gray-500 italic">Sin habilidades registradas</div>
+                              <div className="text-sm text-gray-400 italic">Sin habilidades registradas</div>
                             )}
                           </div>
                         </div>
@@ -513,7 +513,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                           <div className="space-y-1">
                             {student.skillsProgression.after.length > 0 ? (
                               student.skillsProgression.after.map((skill, index) => (
-                                <div key={index} className="text-sm text-gray-600 dark:text-gray-400">
+                                <div key={index} className="text-sm text-gray-800 dark:text-gray-700">
                                   • {skill}
                                   {student.skillsProgression?.added.includes(skill) && (
                                     <span className="ml-2 text-xs text-green-600 font-medium">NUEVO</span>
@@ -521,7 +521,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                 </div>
                               ))
                             ) : (
-                              <div className="text-sm text-gray-500 italic">Sin habilidades detectadas</div>
+                              <div className="text-sm text-gray-700 italic">Sin habilidades detectadas</div>
                             )}
                           </div>
                         </div>
@@ -606,7 +606,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                               ) : student.impactMetrics.engagementPattern.trend === 'decreasing' ? (
                                 <TrendingDown className="w-4 h-4 text-red-500" />
                               ) : (
-                                <BarChart3 className="w-4 h-4 text-gray-500" />
+                                <BarChart3 className="w-4 h-4 text-gray-700" />
                               )}
                               <span className="text-sm capitalize">{student.impactMetrics.engagementPattern.trend}</span>
                             </div>
@@ -654,14 +654,14 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <p className="font-medium text-gray-900 dark:text-white">
+                              <p className="font-medium text-gray-900 dark:text-gray-900">
                                 {event.activity}
                               </p>
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs text-gray-700">
                                 {formatDate(event.date)}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            <p className="text-sm text-gray-800 dark:text-gray-700 mt-1">
                               {event.details}
                             </p>
                             {event.impact && (
@@ -693,7 +693,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                         <CardBody className="p-4">
                           <div className="flex items-center justify-between mb-3">
                             <div>
-                              <p className="font-medium text-gray-900 dark:text-white">{result.position}</p>
+                              <p className="font-medium text-gray-900 dark:text-gray-900">{result.position}</p>
                               <p className="text-sm text-gray-600">
                                 {formatDate(result.date)} - Estado: {result.status}
                               </p>
@@ -720,11 +720,11 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                   <h4 className="font-medium text-blue-700 dark:text-blue-300 mb-2">
                                     📊 Análisis Principal
                                   </h4>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800">
                                     <strong>Estado:</strong> {result.fullResult.mainly_analysis.estado} 
                                     ({result.fullResult.mainly_analysis.porcentaje}%)
                                   </p>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800 mt-2">
                                     {result.fullResult.mainly_analysis.analisis}
                                   </p>
                                 </div>
@@ -741,7 +741,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                       <div key={key} className="p-2 bg-white dark:bg-gray-700 rounded">
                                         <strong>{key.replace(/_/g, ' ')}:</strong> 
                                         <span className="ml-1">Nivel {value.nivel}</span>
-                                        <p className="text-gray-600 dark:text-gray-400 mt-1">{value.accion}</p>
+                                        <p className="text-gray-800 dark:text-gray-700 mt-1">{value.accion}</p>
                                       </div>
                                     ))}
                                   </div>
@@ -754,7 +754,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                   <h4 className="font-medium text-orange-700 dark:text-orange-300 mb-2">
                                     ✏️ Ortografía
                                   </h4>
-                                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                                  <p className="text-sm text-gray-900 dark:text-gray-800">
                                     {result.fullResult.spelling.errores} errores detectados
                                   </p>
                                   {result.fullResult.spelling.detalle_errores && (
@@ -762,7 +762,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                                       {result.fullResult.spelling.detalle_errores.slice(0, 5).map((error: any, i: number) => (
                                         <div key={i} className="flex items-center justify-between p-2 bg-white dark:bg-gray-700 rounded">
                                           <span className="text-red-600">"{error.original}"</span>
-                                          <ArrowRight className="w-3 h-3 text-gray-400" />
+                                          <ArrowRight className="w-3 h-3 text-gray-600" />
                                           <span className="text-green-600">"{error.sugerencia}"</span>
                                         </div>
                                       ))}
@@ -810,7 +810,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <Award className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <Award className="w-12 h-12 text-gray-600 mx-auto mb-4" />
                     <p className="text-gray-600">No hay análisis de CV disponibles</p>
                   </div>
                 )}

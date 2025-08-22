@@ -73,14 +73,14 @@ const MonetizationAnalyticsPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-900 mb-2">
               Analizando Monetización
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-800 dark:text-gray-700">
               Calculando métricas de conversión y revenue...
             </p>
           </div>
@@ -91,9 +91,9 @@ const MonetizationAnalyticsPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <div className="max-w-7xl mx-auto">
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="text-center py-12">
               <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-red-600">Error al cargar analytics</h3>
@@ -130,16 +130,16 @@ const MonetizationAnalyticsPage: React.FC = () => {
   // =============================================================================
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-white dark:bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
               💰 Monetización y Value Realization
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-800 dark:text-gray-700 mt-1">
               Análisis completo de conversión, revenue y realización de valor
             </p>
           </div>
@@ -150,61 +150,61 @@ const MonetizationAnalyticsPage: React.FC = () => {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
                 <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Revenue Total</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Revenue Total</p>
                 <p className="text-2xl font-bold">{formatCurrency(analytics.overview.totalRevenue)}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
                 <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Usuarios Pagadores</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Usuarios Pagadores</p>
                 <p className="text-2xl font-bold">{analytics.overview.paidUsers}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
                 <Target className="w-6 h-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Tasa Conversión</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Tasa Conversión</p>
                 <p className="text-2xl font-bold">{formatPercentage(analytics.overview.conversionRate)}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className="p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
                 <Coins className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">ARPU</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">ARPU</p>
                 <p className="text-2xl font-bold">{formatCurrency(analytics.overview.averageRevenuePerUser)}</p>
               </div>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card className="bg-white border border-gray-200 shadow-lg">
             <CardBody className="flex items-center gap-4">
               <div className={`p-3 rounded-lg ${analytics.overview.monthlyGrowthRate >= 0 ? 'bg-green-100 dark:bg-green-900' : 'bg-red-100 dark:bg-red-900'}`}>
                 <TrendingUp className={`w-6 h-6 ${analytics.overview.monthlyGrowthRate >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Growth Rate</p>
+                <p className="text-sm text-gray-800 dark:text-gray-700">Growth Rate</p>
                 <p className="text-2xl font-bold">{formatPercentage(analytics.overview.monthlyGrowthRate)}</p>
               </div>
             </CardBody>
@@ -234,7 +234,7 @@ const MonetizationAnalyticsPage: React.FC = () => {
                     <div className="text-2xl font-bold text-blue-600">{analytics.conversion.totalUsers}</div>
                   </div>
                   
-                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-white border border-gray-200 shadow-sm rounded-lg">
                     <div>
                       <div className="font-medium">Usuarios Gratuitos</div>
                       <div className="text-sm text-gray-600">Solo usan free tier</div>

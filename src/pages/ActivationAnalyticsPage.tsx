@@ -71,12 +71,12 @@ const ActivationAnalyticsPage: React.FC = () => {
       <CardBody>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{title}</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-sm text-gray-800 dark:text-gray-700">{title}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-900">
               {loading ? '...' : `${value.toFixed(1)}${suffix}`}
             </p>
             {description && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{description}</p>
+              <p className="text-xs text-gray-700 dark:text-gray-400 mt-1">{description}</p>
             )}
           </div>
           <div className={`p-3 rounded-full ${color}`}>
@@ -92,10 +92,10 @@ const ActivationAnalyticsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Analizando datos de activación...</p>
+          <p className="text-gray-800 dark:text-gray-700">Analizando datos de activación...</p>
         </div>
       </div>
     );
@@ -103,7 +103,7 @@ const ActivationAnalyticsPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      <div className="min-h-screen bg-white dark:bg-white p-6">
         <Card className="max-w-md mx-auto border-l-4 border-l-red-500">
           <CardBody>
             <div className="flex items-center space-x-2">
@@ -125,16 +125,16 @@ const ActivationAnalyticsPage: React.FC = () => {
   if (!analytics) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-white">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-900">
                 Analytics: Crisis de Activación
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-gray-800 dark:text-gray-700 mt-1">
                 Análisis del funnel de activación de usuarios
               </p>
             </div>
@@ -202,7 +202,7 @@ const ActivationAnalyticsPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 🔥 Funnel de Activación Crítico
               </h3>
             </CardHeader>
@@ -231,7 +231,7 @@ const ActivationAnalyticsPage: React.FC = () => {
               {/* Detalles del funnel */}
               <div className="mt-4 space-y-2">
                 {analytics.funnelSteps.map((step) => (
-                  <div key={step.step} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded">
+                  <div key={step.step} className="flex items-center justify-between p-2 bg-white border border-gray-200 shadow-sm rounded">
                     <span className="font-medium">{step.step}</span>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm">{step.users} usuarios</span>
@@ -254,14 +254,14 @@ const ActivationAnalyticsPage: React.FC = () => {
           {/* Distribución por Universidad (n y %) */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 🎓 Distribución por Universidad
               </h3>
             </CardHeader>
             <CardBody>
               <div className="overflow-auto max-h-[420px]">
                 <table className="min-w-full text-sm">
-                  <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
+                  <thead className="sticky top-0 bg-white border-b-2 border-gray-200 z-10">
                     <tr>
                       <th className="text-left px-3 py-2">Universidad</th>
                       <th className="text-right px-3 py-2">Estudiantes</th>
@@ -292,7 +292,7 @@ const ActivationAnalyticsPage: React.FC = () => {
           {/* Top Universidades */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 🏆 Top Universidades por Activación
               </h3>
             </CardHeader>
@@ -303,7 +303,7 @@ const ActivationAnalyticsPage: React.FC = () => {
                   .sort((a, b) => b.activationRate - a.activationRate)
                   .slice(0, 10)
                   .map((uni, index) => (
-                    <div key={uni.university} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded">
+                    <div key={uni.university} className="flex items-center justify-between p-3 bg-white border border-gray-200 shadow-sm rounded">
                       <div>
                         <p className="font-medium">#{index + 1} {uni.university || 'Sin especificar'}</p>
                         <p className="text-sm text-gray-600">{uni.totalUsers} usuarios total</p>
@@ -315,7 +315,7 @@ const ActivationAnalyticsPage: React.FC = () => {
                         >
                           {uni.activationRate.toFixed(1)}%
                         </Chip>
-                        <p className="text-xs text-gray-500">{uni.activatedUsers} activados</p>
+                        <p className="text-xs text-gray-700">{uni.activatedUsers} activados</p>
                       </div>
                     </div>
                   ))}
@@ -326,7 +326,7 @@ const ActivationAnalyticsPage: React.FC = () => {
           {/* Análisis de Onboarding */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
                 📝 Análisis de Onboarding
               </h3>
             </CardHeader>
@@ -389,7 +389,7 @@ const ActivationAnalyticsPage: React.FC = () => {
         {/* Insights y Recomendaciones */}
         <Card className="mt-6">
           <CardHeader>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-900">
               💡 Insights Críticos para Product-Market Fit
             </h3>
           </CardHeader>

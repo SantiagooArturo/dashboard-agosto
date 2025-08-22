@@ -12,6 +12,7 @@ import UniversitiesPage from './pages/UniversitiesPage';
 import UniversityReportsPage from './pages/UniversityReportsPage';
 import Dashboard2Page from './pages/Dashboard2Page';
 import MonetizationAnalyticsPage from './pages/MonetizationAnalyticsPage';
+import AIChatPage from './pages/AIChatPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { 
   Home, 
@@ -25,11 +26,12 @@ import {
   BarChart3,
   LogOut,
   Moon,
-  Sun
+  Sun,
+  MessageCircle
 } from 'lucide-react';
 import { useTheme } from './contexts/ThemeContext';
 
-type Page = 'dashboard' | 'dashboard2' | 'users' | 'transactions' | 'cv-analysis' | 'firebase-analysis' | 'activation-analytics' | 'universities-analytics' | 'university-reports' | 'engagement-analytics' | 'monetization-analytics' | 'jobs';
+type Page = 'dashboard' | 'dashboard2' | 'users' | 'transactions' | 'cv-analysis' | 'firebase-analysis' | 'activation-analytics' | 'universities-analytics' | 'university-reports' | 'engagement-analytics' | 'monetization-analytics' | 'ai-chat' | 'jobs';
 
 const AppContent: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -65,6 +67,7 @@ const AppContent: React.FC = () => {
     { id: 'universities-analytics', label: 'Universidades', icon: GraduationCap },
     { id: 'university-reports', label: 'REPORTES UNI', icon: BarChart3 },
     { id: 'engagement-analytics', label: 'Analytics: Engagement', icon: Heart },
+    { id: 'ai-chat', label: 'Chat AI', icon: MessageCircle },
     // { id: 'monetization-analytics', label: 'Analytics: Monetización', icon: DollarSign },
     // { id: 'jobs', label: 'Empleos', icon: Briefcase },
   ];
@@ -93,15 +96,17 @@ const AppContent: React.FC = () => {
         return <EngagementAnalyticsPage />;
       case 'monetization-analytics':
         return <MonetizationAnalyticsPage />;
+      case 'ai-chat':
+        return <AIChatPage />;
       // case 'jobs':
       //   return (
       //     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
       //       <div className="text-center py-20">
       //         <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-      //         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+      //         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-900 mb-2">
       //           Gestión de Empleos
       //         </h2>
-      //         <p className="text-gray-600 dark:text-gray-400">
+      //         <p className="text-gray-800 dark:text-gray-700">
       //           Esta página estará disponible próximamente
       //         </p>
       //       </div>
@@ -114,7 +119,7 @@ const AppContent: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-white">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
       </div>
     );
@@ -125,15 +130,15 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex h-screen bg-white dark:bg-white">
       {/* Sidebar */}
-      <div className="w-64 bg-white dark:bg-gray-800 shadow-lg">
+      <div className="w-64 bg-white border-r border-gray-200 shadow-lg">
         {/* Logo */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
             <div>
               <img src='/MyWorkIn-web.png' alt="MyWorkIn Logo" className="h-10 w-auto" />
-              <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-center text-gray-800 dark:text-gray-700">
                 Panel Admin
               </p>
             </div>
@@ -154,7 +159,7 @@ const AppContent: React.FC = () => {
                   className={`w-full flex items-center space-x-3 px-3 py-2 mb-1 rounded-lg text-left transition-colors ${
                     isActive
                       ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      : 'text-gray-900 dark:text-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -173,10 +178,10 @@ const AppContent: React.FC = () => {
                 <span className="text-white text-sm font-bold">A</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-900">
                   Admin
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-700 dark:text-gray-600">
                   admin@myworkin.com
                 </p>
               </div>
